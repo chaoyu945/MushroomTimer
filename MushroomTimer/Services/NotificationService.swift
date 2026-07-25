@@ -33,12 +33,35 @@ final class NotificationService: NotificationScheduling {
         content.body = NotificationPolicy.body(groupName: groupName, mushroomName: mushroomName)
         content.sound = .default
         content.interruptionLevel = NotificationPolicy.interruptionLevel
+        content.categoryIdentifier = NotificationPolicy.categoryID
+        content.userInfo = ["timerID": id.uuidString]
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(intervalSeconds), repeats: false)
         let request = UNNotificationRequest(
             identifier: id.uuidString, content: content, trigger: trigger
         )
         try await center.add(request)
+    }
+
+    /// 註冊通知上的動作按鈕。App 啟動時呼叫一次即可。
+    func registerCategories() {
+        let complete = UNNotificationAction(
+            identifier: NotificationPolicy.completeActionID,
+            title: "已完成",
+            options: []
+        )
+        let snooze = UNNotificationAction(
+            identifier: NotificationPolicy.snoozeActionID,
+            title: "延後 1 分鐘",
+            options: []
+        )
+        let category = UNNotificationCategory(
+            identifier: NotificationPolicy.categoryID,
+            actions: [complete, snooze],
+            intentIdentifiers: [],
+            options: []
+        )
+        center.setNotificationCategories([category])
     }
 
     func cancel(id: UUID) {

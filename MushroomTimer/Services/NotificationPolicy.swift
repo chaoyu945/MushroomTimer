@@ -15,6 +15,12 @@ enum NotificationPolicy {
 
     static let title = "菇要重生了"
 
+    static let categoryID = "mushroom-respawn"
+    static let completeActionID = "complete"
+    static let snoozeActionID = "snooze"
+    /// 「延後 1 分鐘」的秒數。
+    static let snoozeSeconds = 60
+
     static func body(groupName: String, mushroomName: String) -> String {
         "【\(groupName)】\(mushroomName) 的菇要重生了"
     }

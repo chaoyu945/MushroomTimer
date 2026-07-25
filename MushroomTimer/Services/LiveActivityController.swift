@@ -8,8 +8,8 @@ import SwiftData
 ///
 /// 已知限制：免費帳號沒有遠端推播，主 App 沒在執行時無法在最快一筆到期的瞬間
 /// 自動換成下一筆。因此 `ContentState` 會帶著下一筆的名稱，並在每次主 App
-/// 的 process 有機會執行時重新整理——進前景、以及每一次登記／取消／完成。
-/// （通知動作那條路徑要等 Task 17 接上 delegate 之後才會存在。）
+/// 的 process 有機會執行時重新整理——進前景、以及每一次登記／取消／完成／
+/// 通知動作（`NotificationActionHandler.handle` 的已完成與延後兩條路徑都會呼叫）。
 @MainActor
 enum LiveActivityController {
     /// 由進行中的計時（已依 fireAt 排序）組出畫面狀態。
