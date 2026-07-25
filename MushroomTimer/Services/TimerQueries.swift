@@ -10,7 +10,11 @@ enum TimerQueries {
         let activeRaw = TimerStatus.active.rawValue
         var descriptor = FetchDescriptor<TimerEntry>(
             predicate: #Predicate { $0.statusRaw == activeRaw },
-            sortBy: [SortDescriptor(\.fireAt, order: .forward)]
+            sortBy: [
+                SortDescriptor(\.fireAt, order: .forward),
+                // 同時間到期時要有確定的先後，否則 Live Activity 顯示哪一筆會飄。
+                SortDescriptor(\.createdAt, order: .forward)
+            ]
         )
         descriptor.includePendingChanges = true
         return try context.fetch(descriptor)

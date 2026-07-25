@@ -1,8 +1,15 @@
 import Foundation
 import UserNotifications
 
+/// 讓 `MushroomLogger` 可以在測試中換掉真正的通知中心。
+/// 沒有這層，排定失敗的路徑就完全測不到——而那正是最需要測的一條。
+protocol NotificationScheduling {
+    func schedule(id: UUID, groupName: String, mushroomName: String, at date: Date) async throws
+    func cancel(id: UUID)
+}
+
 /// 本機通知的排定與取消。不需要伺服器，也不需要遠端推播 entitlement。
-final class NotificationService {
+final class NotificationService: NotificationScheduling {
     static let shared = NotificationService()
 
     private let center = UNUserNotificationCenter.current()
