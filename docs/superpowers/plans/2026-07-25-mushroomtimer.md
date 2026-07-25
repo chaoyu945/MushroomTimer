@@ -2730,7 +2730,7 @@ struct GroupListView: View {
             Button("刪除", role: .destructive) {
                 if let group = pendingDeletion {
                     context.delete(group)
-                    try? context.save()
+                    save()
                 }
                 pendingDeletion = nil
             }
@@ -2781,7 +2781,7 @@ struct MushroomListView: View {
                     .swipeActions(edge: .trailing) {
                         Button("刪除", role: .destructive) {
                             context.delete(mushroom)
-                            try? context.save()
+                            save()
                         }
                     }
                 }
@@ -2800,7 +2800,7 @@ struct MushroomListView: View {
                 Slider(
                     value: Binding(
                         get: { group.radius },
-                        set: { group.radius = $0; try? context.save() }
+                        set: { group.radius = $0; save() }
                     ),
                     in: 20...300,
                     step: 10
@@ -2819,20 +2819,31 @@ struct MushroomListView: View {
             TextField("群組名稱", text: $draftGroupName)
             Button("取消", role: .cancel) {}
             Button("儲存") {
-                let trimmed = draftGroupName.trimmingCharacters(in: .whitespaces)
+                let trimmed = draftGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !trimmed.isEmpty else { return }
                 group.name = trimmed
-                try? context.save()
+                save()
             }
         }
     }
 
     private func addMushroom() {
-        let trimmed = draftName.trimmingCharacters(in: .whitespaces)
+        let trimmed = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let mushroom = Mushroom(name: trimmed, group: group)
         context.insert(mushroom)
-        try? context.save()
+        save()
+    }
+
+    /// 存檔失敗時要讓使用者看到。這兩個畫面管的是全 App 最有價值的資料，
+    /// 靜默失敗會讓人以為改動生效了。搭配一個 `@State private var saveError: String?`
+    /// 與對應的 alert 使用。
+    private func save() {
+        do {
+            try context.save()
+        } catch {
+            saveError = error.localizedDescription
+        }
     }
 }
 ```
@@ -3848,7 +3859,7 @@ extension LocationService: CLLocationManagerDelegate {
     }
 
     private func createGroup() {
-        let trimmed = draftGroupName.trimmingCharacters(in: .whitespaces)
+        let trimmed = draftGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty, let draftCoordinate else { return }
         let group = MushroomGroup(
             name: trimmed,
@@ -3856,7 +3867,12 @@ extension LocationService: CLLocationManagerDelegate {
             longitude: draftCoordinate.longitude
         )
         context.insert(group)
-        try? context.save()
+        do {
+            try context.save()
+        } catch {
+            errorMessage = error.localizedDescription
+            return
+        }
         selectedGroupID = group.id
     }
 ```
