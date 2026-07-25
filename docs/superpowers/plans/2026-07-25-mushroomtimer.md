@@ -4122,7 +4122,11 @@ enum IntentSupport {
     static func allMushrooms(context: ModelContext) throws -> [Mushroom] {
         try context.fetch(
             FetchDescriptor<Mushroom>(
-                sortBy: [SortDescriptor(\.useCount, order: .reverse)]
+                sortBy: [
+                    SortDescriptor(\.useCount, order: .reverse),
+                    // 次數相同時要有確定的先後，否則捷徑選單的排序每次都會跳。
+                    SortDescriptor(\.name, order: .forward)
+                ]
             )
         )
     }

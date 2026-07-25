@@ -96,4 +96,37 @@ final class IntentSupportTests: XCTestCase {
             try IntentSupport.preferredMushroom(context: context, defaults: defaults)
         )
     }
+
+    /// 記下的群組後來被刪掉時要退回全體最常用，不能整個回傳 nil。
+    /// 這條路徑跟「從來沒記錄過群組」不同：UUID 解析得出來，只是查不到東西。
+    func testPreferredMushroomFallsBackWhenKnownGroupWasDeleted() throws {
+        let doomed = makeGroup(name: "會被刪掉的群組")
+        let survivor = makeGroup(name: "還在的群組")
+        makeMushroom(name: "沒了的菇", useCount: 9, group: doomed)
+        makeMushroom(name: "還在的菇", useCount: 2, group: survivor)
+        try context.save()
+        defaults.set(doomed.id.uuidString, forKey: LocationService.lastKnownGroupIDKey)
+
+        context.delete(doomed)
+        try context.save()
+
+        XCTAssertEqual(
+            try IntentSupport.preferredMushroom(context: context, defaults: defaults)?.name,
+            "還在的菇"
+        )
+    }
+
+    /// 記下的群組還在、但裡面一顆菇都沒有時，也要退回全體最常用。
+    func testPreferredMushroomFallsBackWhenKnownGroupHasNoMushrooms() throws {
+        let empty = makeGroup(name: "空群組")
+        let other = makeGroup(name: "有菇的群組")
+        makeMushroom(name: "別處的菇", useCount: 4, group: other)
+        try context.save()
+        defaults.set(empty.id.uuidString, forKey: LocationService.lastKnownGroupIDKey)
+
+        XCTAssertEqual(
+            try IntentSupport.preferredMushroom(context: context, defaults: defaults)?.name,
+            "別處的菇"
+        )
+    }
 }
