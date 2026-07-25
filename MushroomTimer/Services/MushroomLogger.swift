@@ -40,38 +40,47 @@ enum MushroomLogger {
             throw LogError.timeAlreadyPassed
         }
 
+        // 先排通知，成功了才動資料庫。
+        //
+        // 順序很重要，而且不能靠 `context.rollback()` 善後——實測證實它不會丟掉
+        // 尚未存檔的 insert，也不會還原已經改掉的屬性。所以唯一可靠的做法是
+        // 在確定通知排得進去之前，什麼都不要寫。
+        //
+        // 通知的識別碼就是這筆計時的 id，所以先把 id 產生出來。
+        let id = UUID()
+        do {
+            try await scheduler.schedule(
+                id: id,
+                groupName: mushroom.group?.name ?? "",
+                mushroomName: mushroom.name,
+                at: fireAt
+            )
+        } catch {
+            throw LogError.notificationFailed(error)
+        }
+
         let entry = TimerEntry(
+            id: id,
             mushroom: mushroom,
             createdAt: now,
             remainingSeconds: remainingSeconds,
             leadSeconds: leadSeconds,
             fireAt: fireAt
         )
+        let previousLastUsedAt = mushroom.lastUsedAt
         context.insert(entry)
         mushroom.useCount += 1
         mushroom.lastUsedAt = now
 
-        // 先排通知再存檔。排不成功就整筆回滾——寧可什麼都沒建立，
-        // 也不要留下一筆會倒數但永遠不會響的計時。
-        do {
-            try await scheduler.schedule(
-                id: entry.id,
-                groupName: mushroom.group?.name ?? "",
-                mushroomName: mushroom.name,
-                at: fireAt
-            )
-        } catch {
-            // rollback 會丟掉這個 context 上所有未存檔的變更，包含上面那些。
-            context.rollback()
-            throw LogError.notificationFailed(error)
-        }
-
         do {
             try context.save()
         } catch {
-            // 存檔失敗就把已經排好的通知收回來，否則會響一個沒有對應計時的提醒。
-            scheduler.cancel(id: entry.id)
-            context.rollback()
+            // 存檔失敗時明確地把每一項還原回去，不要指望 rollback()。
+            // 通知也要收回來，否則會響一個沒有對應計時的提醒。
+            scheduler.cancel(id: id)
+            context.delete(entry)
+            mushroom.useCount -= 1
+            mushroom.lastUsedAt = previousLastUsedAt
             throw error
         }
 
