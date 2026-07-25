@@ -8,6 +8,8 @@ private let activeStatusRaw = TimerStatus.active.rawValue
 struct ActiveTimersSection: View {
     @Environment(\.modelContext) private var context
 
+    @State private var cancelError: String?
+
     @Query(
         filter: #Predicate<TimerEntry> { $0.statusRaw == activeStatusRaw },
         sort: \TimerEntry.fireAt,
@@ -28,15 +30,34 @@ struct ActiveTimersSection: View {
                 List {
                     ForEach(timers) { timer in
                         row(for: timer)
-                            .swipeActions(edge: .leading) {
+                            // 破壞性的滑動一律放在 trailing：全 App 其他地方都是這樣，
+                            // 而且 leading 會跟系統的返回手勢搶。
+                            .swipeActions(edge: .trailing) {
                                 Button("取消", role: .destructive) {
-                                    try? MushroomLogger.cancel(timer, context: context)
+                                    do {
+                                        try MushroomLogger.cancel(timer, context: context)
+                                    } catch {
+                                        // 通知已經撤掉了，但狀態沒存進去。不能沉默——
+                                        // 否則會留下一筆會倒數卻永遠不會響的計時。
+                                        cancelError = error.localizedDescription
+                                    }
                                 }
                             }
                     }
                 }
                 .listStyle(.plain)
             }
+        }
+        .alert(
+            "取消失敗",
+            isPresented: Binding(
+                get: { cancelError != nil },
+                set: { if !$0 { cancelError = nil } }
+            )
+        ) {
+            Button("好", role: .cancel) { cancelError = nil }
+        } message: {
+            Text(cancelError ?? "")
         }
     }
 
