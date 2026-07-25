@@ -81,7 +81,11 @@ struct MushroomLiveActivity: Widget {
     }
 
     private func countdown(to date: Date) -> some View {
-        Text(timerInterval: Date.now...date, countsDown: true)
+        // `Text(timerInterval:)` 吃的是 ClosedRange，lowerBound > upperBound 會直接 trap。
+        // 提醒時間過了之後這個 view 仍可能被重新求值（extension 重啟、狀態切換），
+        // 所以一定要夾住範圍，不能直接寫 Date.now...date。
+        let now = Date.now
+        return Text(timerInterval: min(now, date)...max(now, date), countsDown: true)
             .multilineTextAlignment(.trailing)
     }
 }
