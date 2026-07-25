@@ -49,6 +49,7 @@
 		BB96BFAE5B8AC973A89416A7 /* MushroomLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB5E0CB79E08D30AFCA9A7 /* MushroomLogger.swift */; };
 		BBF92ED5C3C9F70B7B9EDF0A /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCA0BF381B2D157151369AA /* LocationService.swift */; };
 		D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E4125321C8FDA62C34E248 /* GroupListView.swift */; };
+		D3FB84D265F8F031FC48673C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC94108FFEDDD25D3C887D53 /* Assets.xcassets */; };
 		DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */; };
 		E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A342B37574622AEB979688 /* TimerCalculator.swift */; };
 		F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F07028EDD182948D078592 /* ActiveTimersSection.swift */; };
@@ -126,6 +127,7 @@
 		C2E2F918B216DAD57127A166 /* MushroomGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomGroup.swift; sourceTree = "<group>"; };
 		C3F07028EDD182948D078592 /* ActiveTimersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTimersSection.swift; sourceTree = "<group>"; };
 		C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomLoggerTests.swift; sourceTree = "<group>"; };
+		CC94108FFEDDD25D3C887D53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9AD83BF34B380C857399EEF /* MushroomActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributes.swift; sourceTree = "<group>"; };
 		DD32F8CD6E94134D758C221C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E78717AB597A84B01A34589E /* IntentProcessMarkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentProcessMarkerTests.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		0AF0CC3ACD7A0BE3CBE9E1B3 /* MushroomTimer */ = {
 			isa = PBXGroup;
 			children = (
+				CC94108FFEDDD25D3C887D53 /* Assets.xcassets */,
 				343D2B82C3797DA02F97425C /* Info.plist */,
 				96E1E0B3026496AA69470B6E /* MushroomTimer.entitlements */,
 				1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */,
@@ -296,6 +299,7 @@
 			buildConfigurationList = 2BFA354286BC7973E4E4B0F4 /* Build configuration list for PBXNativeTarget "MushroomTimer" */;
 			buildPhases = (
 				E3F82AA70DCCA6CCB8FED652 /* Sources */,
+				DBC59E246BFBA4A4E022005F /* Resources */,
 				6F8931382373ABC7A5AC26B5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
@@ -383,6 +387,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DBC59E246BFBA4A4E022005F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3FB84D265F8F031FC48673C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		64A4BA3A1794F67392BC5ADA /* Sources */ = {
