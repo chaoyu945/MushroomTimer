@@ -23,6 +23,7 @@
 		49A7F57AD2CC8D6F3AD205B8 /* MushroomTimerWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5235821BBE0EEBEF14AA207F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */; };
 		52B6CE119C23FC5944D5A936 /* TimerCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */; };
+		58BCC801B4B76ED0CA677688 /* QuickLogSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9364EEC0FC19F4A378D0E47 /* QuickLogSection.swift */; };
 		59E479BDC5D9BB3E4A837E99 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
 		6574C45559F97CA8DE99BF59 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1CA25C71F8C05DF9872303 /* NotificationPolicyTests.swift */; };
 		6703CA772C609D3A173E1742 /* WidgetPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A10FB26414FBBF8FD0C62C /* WidgetPayloadTests.swift */; };
@@ -47,6 +48,7 @@
 		BB96BFAE5B8AC973A89416A7 /* MushroomLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB5E0CB79E08D30AFCA9A7 /* MushroomLogger.swift */; };
 		D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E4125321C8FDA62C34E248 /* GroupListView.swift */; };
 		E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A342B37574622AEB979688 /* TimerCalculator.swift */; };
+		F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F07028EDD182948D078592 /* ActiveTimersSection.swift */; };
 		FCC3A25577C7E4904CF5893E /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76B11F3066C1FDC4C76754 /* SettingsStore.swift */; };
 		FD417E18A05211A7D1865501 /* QuickLogIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A06E2CBBF9940FC5FECE08 /* QuickLogIntent.swift */; };
 		FEE220AEA3384405CA24F5DE /* QuickLogIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A06E2CBBF9940FC5FECE08 /* QuickLogIntent.swift */; };
@@ -117,12 +119,14 @@
 		B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		B87C4E9939AC771A44C39E08 /* TimerQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueries.swift; sourceTree = "<group>"; };
 		C2E2F918B216DAD57127A166 /* MushroomGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomGroup.swift; sourceTree = "<group>"; };
+		C3F07028EDD182948D078592 /* ActiveTimersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTimersSection.swift; sourceTree = "<group>"; };
 		C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomLoggerTests.swift; sourceTree = "<group>"; };
 		D9AD83BF34B380C857399EEF /* MushroomActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributes.swift; sourceTree = "<group>"; };
 		DD32F8CD6E94134D758C221C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E78717AB597A84B01A34589E /* IntentProcessMarkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentProcessMarkerTests.swift; sourceTree = "<group>"; };
 		E8A06E2CBBF9940FC5FECE08 /* QuickLogIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogIntent.swift; sourceTree = "<group>"; };
 		E93297D94A2D72D565B1A641 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E9364EEC0FC19F4A378D0E47 /* QuickLogSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSection.swift; sourceTree = "<group>"; };
 		EB1CA25C71F8C05DF9872303 /* NotificationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicyTests.swift; sourceTree = "<group>"; };
 		ED89C90547C3FE29A133E296 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		EEC62ADA0D9EC46EA87D3CAE /* DurationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationInput.swift; sourceTree = "<group>"; };
@@ -224,9 +228,11 @@
 		929AC975D1862BB45886D196 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C3F07028EDD182948D078592 /* ActiveTimersSection.swift */,
 				48E4125321C8FDA62C34E248 /* GroupListView.swift */,
 				F27031CBE502D1867FFD149A /* MainView.swift */,
 				8BBB1EA6B867776F4195DF16 /* MushroomListView.swift */,
+				E9364EEC0FC19F4A378D0E47 /* QuickLogSection.swift */,
 				57B3E760F020A24328342CEF /* TimeInputSheet.swift */,
 				91A0BE93586EB4F0E8E35B69 /* VerificationView.swift */,
 			);
@@ -407,6 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */,
 				86BD3E03DF9A00AAAB0C34D4 /* DurationInput.swift in Sources */,
 				D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */,
 				8BBA38CE3FB6A39EC639AA51 /* MainView.swift in Sources */,
@@ -420,6 +427,7 @@
 				8822B81A0A31FE1D5BBF2C18 /* NotificationService.swift in Sources */,
 				6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */,
 				FEE220AEA3384405CA24F5DE /* QuickLogIntent.swift in Sources */,
+				58BCC801B4B76ED0CA677688 /* QuickLogSection.swift in Sources */,
 				FCC3A25577C7E4904CF5893E /* SettingsStore.swift in Sources */,
 				43F63840E06822CFC843FEAB /* SharedKeychain.swift in Sources */,
 				6E8705A0E5F6EB9E5516522E /* TimeInputSheet.swift in Sources */,
