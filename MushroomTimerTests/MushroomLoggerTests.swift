@@ -111,7 +111,7 @@ final class MushroomLoggerTests: XCTestCase {
             mushroom: mushroom, remainingSeconds: 0, leadSeconds: 15,
             respawnSeconds: 300, context: context, scheduler: scheduler, now: now
         )
-        try MushroomLogger.cancel(entry, context: context)
+        try await MushroomLogger.cancel(entry, context: context)
         XCTAssertEqual(entry.status, .cancelled)
         XCTAssertEqual(try TimerQueries.active(in: context).count, 0)
     }
@@ -122,7 +122,7 @@ final class MushroomLoggerTests: XCTestCase {
             mushroom: mushroom, remainingSeconds: 0, leadSeconds: 15,
             respawnSeconds: 300, context: context, scheduler: scheduler, now: now
         )
-        try MushroomLogger.complete(entry, context: context)
+        try await MushroomLogger.complete(entry, context: context)
         XCTAssertEqual(entry.status, .completed)
     }
 

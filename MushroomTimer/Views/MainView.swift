@@ -80,7 +80,10 @@ struct MainView: View {
                 // 這是全 App 唯一的到期回收點，壞掉的話會讓所有過期計時卡在畫面上。
                 logger.error("markFired 失敗：\(error.localizedDescription, privacy: .public)")
             }
-            Task { await refreshCurrentGroup() }
+            Task {
+                await refreshCurrentGroup()
+                await LiveActivityController.refresh(context: context)
+            }
         }
         .task {
             location.requestAuthorization()

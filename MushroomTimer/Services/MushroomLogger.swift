@@ -85,21 +85,24 @@ enum MushroomLogger {
         }
 
         WidgetChannel.refresh(context: context)
+        await LiveActivityController.refresh(context: context)
 
         return entry
     }
 
     /// 使用者左滑取消。連帶把已排定的通知撤掉。
-    static func cancel(_ entry: TimerEntry, context: ModelContext) throws {
+    static func cancel(_ entry: TimerEntry, context: ModelContext) async throws {
         entry.status = .cancelled
         NotificationService.shared.cancel(id: entry.id)
         try context.save()
+        await LiveActivityController.refresh(context: context)
     }
 
     /// 使用者按「已完成」。
-    static func complete(_ entry: TimerEntry, context: ModelContext) throws {
+    static func complete(_ entry: TimerEntry, context: ModelContext) async throws {
         entry.status = .completed
         NotificationService.shared.cancel(id: entry.id)
         try context.save()
+        await LiveActivityController.refresh(context: context)
     }
 }

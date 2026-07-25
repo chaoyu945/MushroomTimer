@@ -34,12 +34,14 @@ struct ActiveTimersSection: View {
                             // 而且 leading 會跟系統的返回手勢搶。
                             .swipeActions(edge: .trailing) {
                                 Button("取消", role: .destructive) {
-                                    do {
-                                        try MushroomLogger.cancel(timer, context: context)
-                                    } catch {
-                                        // 通知已經撤掉了，但狀態沒存進去。不能沉默——
-                                        // 否則會留下一筆會倒數卻永遠不會響的計時。
-                                        cancelError = error.localizedDescription
+                                    Task {
+                                        do {
+                                            try await MushroomLogger.cancel(timer, context: context)
+                                        } catch {
+                                            // 通知已經撤掉了，但狀態沒存進去。不能沉默——
+                                            // 否則會留下一筆會倒數卻永遠不會響的計時。
+                                            cancelError = error.localizedDescription
+                                        }
                                     }
                                 }
                             }
