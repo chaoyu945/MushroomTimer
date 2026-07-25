@@ -16,16 +16,19 @@
 		27448740B2BC19CEE6B2C9C4 /* TimerQueriesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9E19848B81138A3A6D384A /* TimerQueriesTests.swift */; };
 		2B0998B730257932B3B8490B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */; };
 		2F34B87293809F28004C2D1D /* NotificationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117BC947C514D32047430F9 /* NotificationPolicy.swift */; };
+		302DE55CE1C0317A30CA05EB /* QuickLogHereIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E31980C7B72DD204CBC05AE /* QuickLogHereIntent.swift */; };
 		304FD7E645216B3095BCA784 /* DurationInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891E4FD41DA6CC6C1FC00A62 /* DurationInputTests.swift */; };
 		3C4125AD129A08E1EB8951E5 /* WidgetPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD959B818E5929AE591DFB6 /* WidgetPayload.swift */; };
 		3FF570F4AB11D6163246B9E1 /* MushroomGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E2F918B216DAD57127A166 /* MushroomGroup.swift */; };
 		43F63840E06822CFC843FEAB /* SharedKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C254939F88113A496C6A4B /* SharedKeychain.swift */; };
+		46890ED0A157A5A765F00192 /* IntentSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230953AEDF221C498B776C31 /* IntentSupport.swift */; };
 		489CACEDBAC8C51F40B7D91E /* GroupLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2386E5436F2E01CD239CF28F /* GroupLocator.swift */; };
 		49A7F57AD2CC8D6F3AD205B8 /* MushroomTimerWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5235821BBE0EEBEF14AA207F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */; };
 		52B6CE119C23FC5944D5A936 /* TimerCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */; };
 		58BCC801B4B76ED0CA677688 /* QuickLogSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9364EEC0FC19F4A378D0E47 /* QuickLogSection.swift */; };
 		59E479BDC5D9BB3E4A837E99 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
+		635ECE90DF763F5B643FBF02 /* MushroomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265969DA8299EEEE86A5C7A9 /* MushroomEntity.swift */; };
 		6574C45559F97CA8DE99BF59 /* NotificationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1CA25C71F8C05DF9872303 /* NotificationPolicyTests.swift */; };
 		6703CA772C609D3A173E1742 /* WidgetPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A10FB26414FBBF8FD0C62C /* WidgetPayloadTests.swift */; };
 		6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
@@ -46,12 +49,15 @@
 		ABDC6ECFEC4603DAD5EC3A4A /* TimerEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B03583BFC1C539B94CA12BF /* TimerEntry.swift */; };
 		AC131AC4C7AAABB894D5E736 /* SettingsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1BCDBE90679F15E0455ED2 /* SettingsStoreTests.swift */; };
 		B21FFFF3A358B43C8B1C5B3C /* MushroomLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */; };
+		B54D6AE565F73557C26FD351 /* IntentSupportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 568C87A44F55D1B138076F56 /* IntentSupportTests.swift */; };
 		BB96BFAE5B8AC973A89416A7 /* MushroomLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB5E0CB79E08D30AFCA9A7 /* MushroomLogger.swift */; };
 		BBF92ED5C3C9F70B7B9EDF0A /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCA0BF381B2D157151369AA /* LocationService.swift */; };
 		D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E4125321C8FDA62C34E248 /* GroupListView.swift */; };
 		D3FB84D265F8F031FC48673C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC94108FFEDDD25D3C887D53 /* Assets.xcassets */; };
 		DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */; };
 		E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A342B37574622AEB979688 /* TimerCalculator.swift */; };
+		E6FBE78F710ABAE6378ECD48 /* LogMushroomIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A6ECB5618A71F7CF2F7A0B /* LogMushroomIntent.swift */; };
+		EA20F27ED095A7D1E4EE67AF /* AppShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF3D309E373C072B0F3BC8 /* AppShortcuts.swift */; };
 		F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F07028EDD182948D078592 /* ActiveTimersSection.swift */; };
 		FCC3A25577C7E4904CF5893E /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76B11F3066C1FDC4C76754 /* SettingsStore.swift */; };
 		FD417E18A05211A7D1865501 /* QuickLogIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A06E2CBBF9940FC5FECE08 /* QuickLogIntent.swift */; };
@@ -96,17 +102,23 @@
 		1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerApp.swift; sourceTree = "<group>"; };
 		1A1BCDBE90679F15E0455ED2 /* SettingsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreTests.swift; sourceTree = "<group>"; };
 		1A79A5B9BDE577AFCE97B5E7 /* TimeInputModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInputModelTests.swift; sourceTree = "<group>"; };
+		230953AEDF221C498B776C31 /* IntentSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentSupport.swift; sourceTree = "<group>"; };
 		2386E5436F2E01CD239CF28F /* GroupLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupLocator.swift; sourceTree = "<group>"; };
 		247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributesTests.swift; sourceTree = "<group>"; };
+		265969DA8299EEEE86A5C7A9 /* MushroomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomEntity.swift; sourceTree = "<group>"; };
+		2DEF3D309E373C072B0F3BC8 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
 		308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		343D2B82C3797DA02F97425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34C254939F88113A496C6A4B /* SharedKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedKeychain.swift; sourceTree = "<group>"; };
+		36A6ECB5618A71F7CF2F7A0B /* LogMushroomIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMushroomIntent.swift; sourceTree = "<group>"; };
 		3A76B11F3066C1FDC4C76754 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		48E4125321C8FDA62C34E248 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		4CCA0BF381B2D157151369AA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		4F9E19848B81138A3A6D384A /* TimerQueriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueriesTests.swift; sourceTree = "<group>"; };
+		568C87A44F55D1B138076F56 /* IntentSupportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentSupportTests.swift; sourceTree = "<group>"; };
 		57B3E760F020A24328342CEF /* TimeInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInputSheet.swift; sourceTree = "<group>"; };
 		5AD959B818E5929AE591DFB6 /* WidgetPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPayload.swift; sourceTree = "<group>"; };
+		5E31980C7B72DD204CBC05AE /* QuickLogHereIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogHereIntent.swift; sourceTree = "<group>"; };
 		637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MushroomTimerWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCalculatorTests.swift; sourceTree = "<group>"; };
 		6AD755609E25F5F68BE0DBBD /* MushroomLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomLiveActivity.swift; sourceTree = "<group>"; };
@@ -162,12 +174,25 @@
 				343D2B82C3797DA02F97425C /* Info.plist */,
 				96E1E0B3026496AA69470B6E /* MushroomTimer.entitlements */,
 				1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */,
+				11423CE04D6A39EF98E1AD96 /* Intents */,
 				D568C9E5D2493BD35408F88B /* Models */,
 				A96D35EFBDAA10EBD0316AC2 /* Services */,
 				C6AE8A05F9F3A3CB6558C8A7 /* Stores */,
 				929AC975D1862BB45886D196 /* Views */,
 			);
 			path = MushroomTimer;
+			sourceTree = "<group>";
+		};
+		11423CE04D6A39EF98E1AD96 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				2DEF3D309E373C072B0F3BC8 /* AppShortcuts.swift */,
+				230953AEDF221C498B776C31 /* IntentSupport.swift */,
+				36A6ECB5618A71F7CF2F7A0B /* LogMushroomIntent.swift */,
+				265969DA8299EEEE86A5C7A9 /* MushroomEntity.swift */,
+				5E31980C7B72DD204CBC05AE /* QuickLogHereIntent.swift */,
+			);
+			path = Intents;
 			sourceTree = "<group>";
 		};
 		240F975350A4F78AD07704DD = {
@@ -188,6 +213,7 @@
 				891E4FD41DA6CC6C1FC00A62 /* DurationInputTests.swift */,
 				FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */,
 				E78717AB597A84B01A34589E /* IntentProcessMarkerTests.swift */,
+				568C87A44F55D1B138076F56 /* IntentSupportTests.swift */,
 				ED89C90547C3FE29A133E296 /* ModelTests.swift */,
 				247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */,
 				C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */,
@@ -421,6 +447,7 @@
 				304FD7E645216B3095BCA784 /* DurationInputTests.swift in Sources */,
 				DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */,
 				1521BA9AD85121910920B02E /* IntentProcessMarkerTests.swift in Sources */,
+				B54D6AE565F73557C26FD351 /* IntentSupportTests.swift in Sources */,
 				16A4A0D0306EDACC6B9AA2F4 /* ModelTests.swift in Sources */,
 				70374674CBF77FB2E73AB9F2 /* MushroomActivityAttributesTests.swift in Sources */,
 				B21FFFF3A358B43C8B1C5B3C /* MushroomLoggerTests.swift in Sources */,
@@ -439,13 +466,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */,
+				EA20F27ED095A7D1E4EE67AF /* AppShortcuts.swift in Sources */,
 				86BD3E03DF9A00AAAB0C34D4 /* DurationInput.swift in Sources */,
 				D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */,
 				489CACEDBAC8C51F40B7D91E /* GroupLocator.swift in Sources */,
+				46890ED0A157A5A765F00192 /* IntentSupport.swift in Sources */,
 				BBF92ED5C3C9F70B7B9EDF0A /* LocationService.swift in Sources */,
+				E6FBE78F710ABAE6378ECD48 /* LogMushroomIntent.swift in Sources */,
 				8BBA38CE3FB6A39EC639AA51 /* MainView.swift in Sources */,
 				0BF2B9712BF81875AB346D0A /* Mushroom.swift in Sources */,
 				8E416B7A5EB5C8D2F691F376 /* MushroomActivityAttributes.swift in Sources */,
+				635ECE90DF763F5B643FBF02 /* MushroomEntity.swift in Sources */,
 				3FF570F4AB11D6163246B9E1 /* MushroomGroup.swift in Sources */,
 				907D3BD1FEEEE71626CEC42B /* MushroomListView.swift in Sources */,
 				BB96BFAE5B8AC973A89416A7 /* MushroomLogger.swift in Sources */,
@@ -453,6 +484,7 @@
 				2F34B87293809F28004C2D1D /* NotificationPolicy.swift in Sources */,
 				8822B81A0A31FE1D5BBF2C18 /* NotificationService.swift in Sources */,
 				6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */,
+				302DE55CE1C0317A30CA05EB /* QuickLogHereIntent.swift in Sources */,
 				FEE220AEA3384405CA24F5DE /* QuickLogIntent.swift in Sources */,
 				58BCC801B4B76ED0CA677688 /* QuickLogSection.swift in Sources */,
 				FCC3A25577C7E4904CF5893E /* SettingsStore.swift in Sources */,
