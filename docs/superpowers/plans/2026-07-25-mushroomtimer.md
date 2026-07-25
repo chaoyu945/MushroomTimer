@@ -1195,13 +1195,16 @@ enum SharedKeychain {
         // 探測項目的保護等級必須跟 payload 一致。少了 kSecAttrAccessible 會落到
         // 預設的 kSecAttrAccessibleWhenUnlocked，鎖屏時查不到也加不進去——
         // 而小工具的 timeline 更新剛好常在鎖屏狀態發生。
+        // 這裡**不可以**放 `kSecMatchLimit`（2026-07-25 實機踩到）。它是搜尋專用的
+        // key，混進 `SecItemAdd` 不會回報錯誤（status 仍是 0），而是讓回傳值不再是
+        // 屬性字典，於是 agrp 被靜默丟掉、prefix 變成 nil、整條通道掛掉卻沒有錯誤碼。
+        // `SecItemCopyMatching` 沒指定 match limit 時本來就等同 kSecMatchLimitOne。
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: "team-id-probe",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
-            kSecReturnAttributes as String: kCFBooleanTrue as Any,
-            kSecMatchLimit as String: kSecMatchLimitOne
+            kSecReturnAttributes as String: kCFBooleanTrue as Any
         ]
         var result: CFTypeRef?
         var status = SecItemCopyMatching(query as CFDictionary, &result)
