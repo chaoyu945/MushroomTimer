@@ -1438,6 +1438,13 @@ enum IntentProcessMarker {
     static func latest(defaults: UserDefaults = .standard) -> String? {
         defaults.string(forKey: key)
     }
+
+    /// 重測前必須先清除。否則上一次成功的紀錄還留著，
+    /// 就算這次 Intent 跑錯 process（主 App 根本讀不到它寫的東西），
+    /// 畫面上仍會顯示舊的成功結果，變成假通過。
+    static func clear(defaults: UserDefaults = .standard) {
+        defaults.removeObject(forKey: key)
+    }
 }
 
 /// 小工具按鈕觸發的登記 Intent。
@@ -1505,6 +1512,10 @@ Expected: `** TEST SUCCEEDED **`
 
 ```swift
             Section("Intent 執行 process") {
+                Button("清除 marker") {
+                    IntentProcessMarker.clear()
+                    append("已清除 marker")
+                }
                 Button("讀取最後一次 Intent 的 process") {
                     append("Intent process：\(IntentProcessMarker.latest() ?? "尚未執行過")")
                 }
@@ -1524,11 +1535,14 @@ Expected: `** BUILD SUCCEEDED **`
 **必須停下來請使用者操作並回報結果。** 驗證項目：
 
 1. 在 App 內點「寫入測試 payload」，確保小工具有按鈕可按
-2. 回到桌面，在小工具上按下其中一顆菇的按鈕（**注意 App 不應被開啟**）
-3. 回到 App，點「讀取最後一次 Intent 的 process」
-4. 期望顯示 `MushroomTimer / com.chaoyu.MushroomTimer`
-   - 若顯示 `MushroomTimerWidgets / com.chaoyu.MushroomTimer.Widgets` → `LiveActivityIntent` 沒有生效，需另尋方案
-   - 若顯示「尚未執行過」→ 按鈕根本沒觸發 Intent
+2. **點「清除 marker」**（很重要：不清的話會讀到上一輪的舊紀錄，變成假通過）
+3. 回到桌面，在小工具上按下其中一顆菇的按鈕（**注意 App 不應被開啟**）
+4. 回到 App，點「讀取最後一次 Intent 的 process」
+5. 期望顯示 `MushroomTimer / com.chaoyu.MushroomTimer` → 成功
+   - 若顯示「尚未執行過」→ **失敗**。可能是 `LiveActivityIntent` 沒生效
+     （Intent 在 widget process 執行，它寫的 UserDefaults 主 App 根本看不到），
+     也可能是按鈕根本沒觸發 Intent。這兩種原因在畫面上無法區分，
+     需要用 Xcode 的 Console 看 widget extension 的 log 才能分辨。
 
 > 為什麼讀 UserDefaults 就能證明？因為兩個 process 有各自獨立的 `UserDefaults.standard`（沒有 App Groups 就不共用）。主 App 讀得到這筆記錄，代表它就是寫入者，也就代表 Intent 是在主 App 的 process 執行的。
 
