@@ -16,6 +16,13 @@ enum IntentProcessMarker {
     static func latest(defaults: UserDefaults = .standard) -> String? {
         defaults.string(forKey: key)
     }
+
+    /// 重測前必須先清除。否則上一次成功的紀錄還留著，
+    /// 就算這次 Intent 跑錯 process（主 App 根本讀不到它寫的東西），
+    /// 畫面上仍會顯示舊的成功結果，變成假通過。
+    static func clear(defaults: UserDefaults = .standard) {
+        defaults.removeObject(forKey: key)
+    }
 }
 
 /// 小工具按鈕觸發的登記 Intent。

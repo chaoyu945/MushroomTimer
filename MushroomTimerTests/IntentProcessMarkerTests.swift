@@ -33,4 +33,14 @@ final class IntentProcessMarkerTests: XCTestCase {
         )
         XCTAssertEqual(IntentProcessMarker.latest(defaults: defaults), "B / b")
     }
+
+    func testClearRemovesTheRecord() {
+        IntentProcessMarker.record(
+            processName: "MushroomTimer",
+            bundleID: "com.chaoyu.MushroomTimer",
+            defaults: defaults
+        )
+        IntentProcessMarker.clear(defaults: defaults)
+        XCTAssertNil(IntentProcessMarker.latest(defaults: defaults))
+    }
 }
