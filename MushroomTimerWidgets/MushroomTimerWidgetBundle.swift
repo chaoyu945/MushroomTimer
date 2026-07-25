@@ -5,6 +5,7 @@ import WidgetKit
 struct MushroomTimerWidgetBundle: WidgetBundle {
     var body: some Widget {
         EmptyWidget()
+        MushroomLiveActivity()
     }
 }
 

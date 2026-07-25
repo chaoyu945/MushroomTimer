@@ -1,3 +1,4 @@
+import ActivityKit
 import SwiftUI
 
 /// 第 0 階段的實機驗證畫面。功能完成後（Task 19）整個檔案移除。
@@ -30,6 +31,20 @@ struct VerificationView: View {
                 }
             }
 
+            Section("Live Activity") {
+                Button("啟動 Live Activity（60 秒）") {
+                    startActivity()
+                }
+                Button("結束全部 Live Activity", role: .destructive) {
+                    Task {
+                        for activity in Activity<MushroomActivityAttributes>.activities {
+                            await activity.end(nil, dismissalPolicy: .immediate)
+                        }
+                        append("已結束全部 Live Activity")
+                    }
+                }
+            }
+
             Section("記錄") {
                 if log.isEmpty {
                     Text("尚無記錄").foregroundStyle(.secondary)
@@ -39,6 +54,29 @@ struct VerificationView: View {
             }
         }
         .navigationTitle("第 0 階段驗證")
+    }
+
+    private func startActivity() {
+        guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+            append("Live Activity 未啟用，請到 設定 → 打菇茜 開啟「即時動態」")
+            return
+        }
+        let state = MushroomActivityAttributes.ContentState(
+            mushroomName: "7-11 門口",
+            groupName: "中山路口",
+            fireAt: Date().addingTimeInterval(60),
+            queuedCount: 2,
+            nextMushroomName: "天橋下"
+        )
+        do {
+            _ = try Activity.request(
+                attributes: MushroomActivityAttributes(),
+                content: .init(state: state, staleDate: nil)
+            )
+            append("已啟動 Live Activity")
+        } catch {
+            append("啟動失敗：\(error.localizedDescription)")
+        }
     }
 
     private func append(_ line: String) {
