@@ -20,7 +20,13 @@ struct GroupListView: View {
                 )
             }
             ForEach(groups) { group in
-                NavigationLink(value: group) {
+                // 這裡刻意用 destination closure，而不是 value + navigationDestination。
+                // GroupListView 本身是被 MainView 的 NavigationStack 推進來的，
+                // 在這裡宣告 navigationDestination 註冊得太晚：第一次點只會播動畫、
+                // 不會真的推入，要返回再進去才會生效。
+                NavigationLink {
+                    MushroomListView(group: group)
+                } label: {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(group.name)
                         Text("\(group.mushrooms.count) 顆菇 · 半徑 \(Int(group.radius)) 公尺")
@@ -36,9 +42,6 @@ struct GroupListView: View {
             }
         }
         .navigationTitle("群組")
-        .navigationDestination(for: MushroomGroup.self) { group in
-            MushroomListView(group: group)
-        }
         .alert(
             "刪除「\(pendingDeletion?.name ?? "")」？",
             isPresented: Binding(

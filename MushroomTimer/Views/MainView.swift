@@ -48,7 +48,8 @@ struct MainView: View {
                     onChangeGroup: { isPickingGroup = true },
                     onCreateGroup: { Task { await prepareNewGroup() } }
                 )
-                .frame(height: 300)
+                // 下半部是主要操作區（單手、邊走邊用），給它足夠高度一次看到約 20 顆菇。
+                .frame(height: 340)
             }
             .navigationTitle("打菇茜")
             .toolbar {

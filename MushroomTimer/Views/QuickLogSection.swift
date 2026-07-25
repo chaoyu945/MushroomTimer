@@ -32,17 +32,22 @@ struct QuickLogSection: View {
                     .padding(.bottom, 8)
             } else {
                 ScrollView {
+                    // 一個地點可能有二十顆以上的菇，所以格子要夠密才不用一直捲動。
+                    // 高度仍保持 44pt——那是點擊目標的下限，再小就容易按錯，
+                    // 而按錯的代價是替錯的菇設了提醒。
                     LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 150), spacing: 10)],
-                        spacing: 10
+                        columns: [GridItem(.adaptive(minimum: 82), spacing: 8)],
+                        spacing: 8
                     ) {
                         ForEach(mushrooms) { mushroom in
                             Button {
                                 selectedMushroom = mushroom
                             } label: {
                                 Text(mushroom.name)
-                                    .font(.title3.bold())
-                                    .frame(maxWidth: .infinity, minHeight: 60)
+                                    .font(.subheadline.bold())
+                                    .lineLimit(2)
+                                    .minimumScaleFactor(0.7)
+                                    .frame(maxWidth: .infinity, minHeight: 44)
                             }
                             .buttonStyle(.borderedProminent)
                         }
@@ -50,8 +55,11 @@ struct QuickLogSection: View {
                             NavigationLink {
                                 MushroomListView(group: group)
                             } label: {
-                                Label("新增菇", systemImage: "plus")
-                                    .frame(maxWidth: .infinity, minHeight: 60)
+                                Label("新增", systemImage: "plus")
+                                    .font(.subheadline)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.7)
+                                    .frame(maxWidth: .infinity, minHeight: 44)
                             }
                             .buttonStyle(.bordered)
                         }
