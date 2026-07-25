@@ -74,4 +74,24 @@ final class TimeInputModelTests: XCTestCase {
         let model = TimeInputModel(leadSeconds: 300)
         XCTAssertEqual(model.preview(now: now, respawnSeconds: 300), "時間已過")
     }
+
+    /// 能不能建立必須跟預覽同調：預覽說不行，就一定按不下去。
+    func testCanConfirmMatchesPreview() {
+        let valid = TimeInputModel(leadSeconds: 15)
+        valid.append("2")
+        valid.append("3")
+        valid.append("0")
+        XCTAssertTrue(valid.canConfirm(now: now, respawnSeconds: 300))
+
+        let unparseable = TimeInputModel(leadSeconds: 15)
+        unparseable.append("2")
+        unparseable.append("7")
+        unparseable.append("0")
+        XCTAssertEqual(unparseable.preview(now: now, respawnSeconds: 300), "輸入不正確")
+        XCTAssertFalse(unparseable.canConfirm(now: now, respawnSeconds: 300))
+
+        let past = TimeInputModel(leadSeconds: 300)
+        XCTAssertEqual(past.preview(now: now, respawnSeconds: 300), "時間已過")
+        XCTAssertFalse(past.canConfirm(now: now, respawnSeconds: 300))
+    }
 }
