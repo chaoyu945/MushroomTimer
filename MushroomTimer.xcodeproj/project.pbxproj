@@ -69,18 +69,18 @@
 
 /* Begin PBXFileReference section */
 		0117BC947C514D32047430F9 /* NotificationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPolicy.swift; sourceTree = "<group>"; };
-		0240A0C48ECADC15F6CA5CDB /* MushroomTimer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MushroomTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0240A0C48ECADC15F6CA5CDB /* MushroomTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MushroomTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerApp.swift; sourceTree = "<group>"; };
 		247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributesTests.swift; sourceTree = "<group>"; };
 		308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		343D2B82C3797DA02F97425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34C254939F88113A496C6A4B /* SharedKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedKeychain.swift; sourceTree = "<group>"; };
 		5AD959B818E5929AE591DFB6 /* WidgetPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPayload.swift; sourceTree = "<group>"; };
-		637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MushroomTimerWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MushroomTimerWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCalculatorTests.swift; sourceTree = "<group>"; };
 		6AD755609E25F5F68BE0DBBD /* MushroomLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomLiveActivity.swift; sourceTree = "<group>"; };
 		7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		7DFA084045DB36DF6D3E601A /* MushroomTimerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MushroomTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DFA084045DB36DF6D3E601A /* MushroomTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MushroomTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85A342B37574622AEB979688 /* TimerCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCalculator.swift; sourceTree = "<group>"; };
 		8879A2D815A4A3A412BECF9A /* SharedKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedKeychainTests.swift; sourceTree = "<group>"; };
 		89E74C7A6C7EBCBB6099AB2A /* MushroomTimerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerWidgetBundle.swift; sourceTree = "<group>"; };

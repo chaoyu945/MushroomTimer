@@ -1,4 +1,4 @@
-> 狀態：Task 2 與 Task 3 已定案。Task 4 找到並修掉了 bug，與 Task 5 一起待實機重測。
+> 狀態：**第 0 階段四項全部完成，可以進入第 1 階段。**
 
 # 第 0 階段驗證結果
 
@@ -42,7 +42,7 @@
 - 動態島 compact／expanded 是否正常：**正常**
 - **結論**：**可用，維持原設計。** 全部資料靠 `ContentState` 傳遞的做法確認可行。
 
-## 共享 Keychain（Task 4）— ⚠️ 第一次失敗，已找到並修掉原因，待重測
+## 共享 Keychain（Task 4）— ✅ 可用（修掉一個 bug 之後）
 
 第一次實機驗證（2026-07-25）：
 
@@ -68,10 +68,17 @@
 
 原本這一項完全沒有單元測試涵蓋，才會等到實機才發現。現在補上了 4 個測試。
 
-- **結論**：**待重測。** 修正後模擬器上 4 個測試全數通過，需要在實機上再跑一次
-  Task 4 Step 9 才能定案要採用 keychain 方案還是 fallback。
+### 修正後的實機重測（2026-07-25）
 
-## 小工具按鈕 Intent 的執行 process（Task 5）— ⚠️ 結果存疑，待重測
+- access group 是否解析成功：**是**
+- 主 App 內寫入後讀回：**成功**
+- 小工具是否顯示出主 App 寫入的內容：**是**
+- 鎖屏一輪後內容是否還在：**是**（保護等級 `kSecAttrAccessibleAfterFirstUnlock` 正確）
+
+- **結論**：**採用 keychain 方案，小工具按鈕直接顯示菇名。**
+  不需要走「最常用 #1/#2/#3」的 fallback。Task 15 照原設計實作。
+
+## 小工具按鈕 Intent 的執行 process（Task 5）— ✅ LiveActivityIntent 有效
 
 第一次實機驗證（2026-07-25）：
 
@@ -92,5 +99,26 @@
 也可能把 App 帶到前景——所以 marker 是對的，但**沒有驗證到小工具按鈕這條路徑**，
 而那正是這一項要證明的事。
 
-- **結論**：**待重測。** Task 4 修好之後小工具才會真的長出菇按鈕，
-  屆時再依 Task 5 Step 8 的步驟重跑一次（記得先點「清除 marker」）。
+### 修正後的實機重測（2026-07-25）
+
+Task 4 修好之後小工具才真的長出菇按鈕，這次是**從小工具按鈕**觸發，不是從捷徑：
+
+- 清除 marker 後按下小工具上的菇按鈕：**App 沒有被開啟**
+- 主 App 讀到的 process 記錄：`MushroomTimer / com.chaoyu.MushroomTimer`
+
+- **結論**：**`LiveActivityIntent` 有效。** 小工具按鈕觸發的 Intent 確實在主 App 的
+  process 背景執行，因此可以寫入 SwiftData、排定通知、更新 Live Activity。
+  Task 14 的 App Intents 與 Task 15 的互動式小工具照原設計實作。
+
+---
+
+## 第 0 階段總結
+
+| 項目 | 結果 | 對設計的影響 |
+|---|---|---|
+| Time Sensitive 通知 | ❌ 免費帳號不支援 | 改用 `.active` + 設定頁引導專注模式允許清單 |
+| Live Activity（無 App Groups） | ✅ 可用 | 維持原設計，資料全靠 `ContentState` 傳遞 |
+| 共享 Keychain | ✅ 可用 | 維持原設計，小工具按鈕顯示菇名，不走 fallback |
+| 小工具 Intent 執行 process | ✅ `LiveActivityIntent` 有效 | 維持原設計，Intent 在主 App process 背景執行 |
+
+四項中只有一項需要改設計，且改動已完成。可以進入第 1 階段。
