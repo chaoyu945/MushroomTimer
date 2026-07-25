@@ -2364,7 +2364,11 @@ enum TimerQueries {
         let activeRaw = TimerStatus.active.rawValue
         var descriptor = FetchDescriptor<TimerEntry>(
             predicate: #Predicate { $0.statusRaw == activeRaw },
-            sortBy: [SortDescriptor(\.fireAt, order: .forward)]
+            sortBy: [
+                SortDescriptor(\.fireAt, order: .forward),
+                // 同時間到期時要有確定的先後，否則 Live Activity 顯示哪一筆會飄。
+                SortDescriptor(\.createdAt, order: .forward)
+            ]
         )
         descriptor.includePendingChanges = true
         return try context.fetch(descriptor)
@@ -2537,11 +2541,16 @@ enum MushroomLogger {
     enum LogError: LocalizedError {
         /// 剩餘時間加重生時間扣掉提前量後已經是過去，不建立計時。
         case timeAlreadyPassed
+        /// 通知排不進去。這時整筆計時都不會建立——留下一筆會倒數卻永遠不會響的
+        /// 計時，比什麼都沒建立更糟。
+        case notificationFailed(Error)
 
         var errorDescription: String? {
             switch self {
             case .timeAlreadyPassed:
                 return "時間已過，無法建立提醒"
+            case .notificationFailed:
+                return "無法排定通知，計時沒有建立。請檢查通知權限。"
             }
         }
     }
@@ -2553,6 +2562,7 @@ enum MushroomLogger {
         leadSeconds: Int,
         respawnSeconds: Int,
         context: ModelContext,
+        scheduler: NotificationScheduling = NotificationService.shared,
         now: Date = .now
     ) async throws -> TimerEntry {
         guard let fireAt = TimerCalculator.fireAt(
@@ -2564,24 +2574,44 @@ enum MushroomLogger {
             throw LogError.timeAlreadyPassed
         }
 
+        // 先排通知，成功了才動資料庫。順序很重要，而且不能靠 `context.rollback()`
+        // 善後——實測證實它不會丟掉尚未存檔的 insert，也不會還原改掉的屬性。
+        // 通知的識別碼就是這筆計時的 id，所以先把 id 產生出來。
+        let id = UUID()
+        do {
+            try await scheduler.schedule(
+                id: id,
+                groupName: mushroom.group?.name ?? "",
+                mushroomName: mushroom.name,
+                at: fireAt
+            )
+        } catch {
+            throw LogError.notificationFailed(error)
+        }
+
         let entry = TimerEntry(
+            id: id,
             mushroom: mushroom,
             createdAt: now,
             remainingSeconds: remainingSeconds,
             leadSeconds: leadSeconds,
             fireAt: fireAt
         )
+        let previousLastUsedAt = mushroom.lastUsedAt
         context.insert(entry)
         mushroom.useCount += 1
         mushroom.lastUsedAt = now
-        try context.save()
 
-        try? await NotificationService.shared.schedule(
-            id: entry.id,
-            groupName: mushroom.group?.name ?? "",
-            mushroomName: mushroom.name,
-            at: fireAt
-        )
+        do {
+            try context.save()
+        } catch {
+            // 存檔失敗時明確地把每一項還原回去，不要指望 rollback()。
+            scheduler.cancel(id: id)
+            context.delete(entry)
+            mushroom.useCount -= 1
+            mushroom.lastUsedAt = previousLastUsedAt
+            throw error
+        }
 
         return entry
     }
