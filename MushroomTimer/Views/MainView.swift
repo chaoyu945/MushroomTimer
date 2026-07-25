@@ -120,9 +120,9 @@ struct MainView: View {
 
     private func prepareNewGroup() async {
         guard let coordinate = await location.updateCurrentLocation() else {
-            draftGroupName = "新群組"
-            draftCoordinate = nil
-            isCreatingGroup = true
+            // 群組就是「一個地點」，沒有座標的群組之後永遠不會被 GPS 判定到。
+            // 所以這裡不開命名對話框——開了也只會讓使用者打完名字按建立卻毫無反應。
+            errorMessage = "拿不到目前位置，無法建立群組。請確認已允許本 App 在使用期間取得位置。"
             return
         }
         draftCoordinate = (coordinate.latitude, coordinate.longitude)
