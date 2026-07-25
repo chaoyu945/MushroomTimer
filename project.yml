@@ -1,0 +1,67 @@
+name: MushroomTimer
+options:
+  bundleIdPrefix: com.chaoyu
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+targets:
+  MushroomTimer:
+    type: application
+    platform: iOS
+    sources: [MushroomTimer, Shared]
+    entitlements:
+      path: MushroomTimer/MushroomTimer.entitlements
+      properties:
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.chaoyu.MushroomTimer.shared
+        com.apple.developer.usernotifications.time-sensitive: true
+    info:
+      path: MushroomTimer/Info.plist
+      properties:
+        CFBundleDisplayName: 打菇茜
+        NSSupportsLiveActivities: true
+        NSLocationWhenInUseUsageDescription: 打菇茜需要目前位置，用來判斷你在哪一個菇群組。
+        UILaunchScreen: {}
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.chaoyu.MushroomTimer
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_EMIT_LOC_STRINGS: YES
+    dependencies:
+      - target: MushroomTimerWidgets
+    scheme:
+      testTargets: [MushroomTimerTests]
+  MushroomTimerWidgets:
+    type: app-extension
+    platform: iOS
+    sources: [MushroomTimerWidgets, Shared]
+    entitlements:
+      path: MushroomTimerWidgets/MushroomTimerWidgets.entitlements
+      properties:
+        keychain-access-groups:
+          - $(AppIdentifierPrefix)com.chaoyu.MushroomTimer.shared
+    info:
+      path: MushroomTimerWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: 打菇茜
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.chaoyu.MushroomTimer.Widgets
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        SKIP_INSTALL: YES
+    dependencies:
+      - sdk: SwiftUI.framework
+      - sdk: WidgetKit.framework
+  MushroomTimerTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [MushroomTimerTests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: MushroomTimer

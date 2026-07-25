@@ -1,0 +1,579 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B0998B730257932B3B8490B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */; };
+		49A7F57AD2CC8D6F3AD205B8 /* MushroomTimerWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5235821BBE0EEBEF14AA207F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */; };
+		52B6CE119C23FC5944D5A936 /* TimerCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */; };
+		59E479BDC5D9BB3E4A837E99 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
+		6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
+		8028E8A857218E2B22EBCCB9 /* MushroomTimerWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E74C7A6C7EBCBB6099AB2A /* MushroomTimerWidgetBundle.swift */; };
+		8BBA38CE3FB6A39EC639AA51 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F27031CBE502D1867FFD149A /* MainView.swift */; };
+		A94A9B192CFB8F612A90703A /* MushroomTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */; };
+		E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A342B37574622AEB979688 /* TimerCalculator.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1AA8C5EEFFDF244CC8F42285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 350D3ADC84D368964DAA902C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BDA4B8F53ED65CF6BDFABE8;
+			remoteInfo = MushroomTimerWidgets;
+		};
+		50C96E92BBB491EB7F0A2B87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 350D3ADC84D368964DAA902C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1899DEE8CEE401A47EEF0A9D;
+			remoteInfo = MushroomTimer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6F8931382373ABC7A5AC26B5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				49A7F57AD2CC8D6F3AD205B8 /* MushroomTimerWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0240A0C48ECADC15F6CA5CDB /* MushroomTimer.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MushroomTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerApp.swift; sourceTree = "<group>"; };
+		308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		343D2B82C3797DA02F97425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MushroomTimerWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCalculatorTests.swift; sourceTree = "<group>"; };
+		7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		7DFA084045DB36DF6D3E601A /* MushroomTimerTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MushroomTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		85A342B37574622AEB979688 /* TimerCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerCalculator.swift; sourceTree = "<group>"; };
+		89E74C7A6C7EBCBB6099AB2A /* MushroomTimerWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerWidgetBundle.swift; sourceTree = "<group>"; };
+		96E1E0B3026496AA69470B6E /* MushroomTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MushroomTimer.entitlements; sourceTree = "<group>"; };
+		A244E04F74181BA501F8198F /* MushroomTimerWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MushroomTimerWidgets.entitlements; sourceTree = "<group>"; };
+		B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		E93297D94A2D72D565B1A641 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F27031CBE502D1867FFD149A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		20C6949ABB30073AB3429DEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B0998B730257932B3B8490B /* SwiftUI.framework in Frameworks */,
+				5235821BBE0EEBEF14AA207F /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0AF0CC3ACD7A0BE3CBE9E1B3 /* MushroomTimer */ = {
+			isa = PBXGroup;
+			children = (
+				343D2B82C3797DA02F97425C /* Info.plist */,
+				96E1E0B3026496AA69470B6E /* MushroomTimer.entitlements */,
+				1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */,
+				D568C9E5D2493BD35408F88B /* Models */,
+				929AC975D1862BB45886D196 /* Views */,
+			);
+			path = MushroomTimer;
+			sourceTree = "<group>";
+		};
+		240F975350A4F78AD07704DD = {
+			isa = PBXGroup;
+			children = (
+				0AF0CC3ACD7A0BE3CBE9E1B3 /* MushroomTimer */,
+				2BBFF91B7DC253AB5E74BA6D /* MushroomTimerTests */,
+				8DDCC9743291817A00031B0B /* MushroomTimerWidgets */,
+				53BBF5092AF37BAA805A2C5C /* Shared */,
+				F1E23BA8C80E9BB26122B853 /* Frameworks */,
+				33EAB13EE185F30F58C18E20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2BBFF91B7DC253AB5E74BA6D /* MushroomTimerTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */,
+			);
+			path = MushroomTimerTests;
+			sourceTree = "<group>";
+		};
+		33EAB13EE185F30F58C18E20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0240A0C48ECADC15F6CA5CDB /* MushroomTimer.app */,
+				7DFA084045DB36DF6D3E601A /* MushroomTimerTests.xctest */,
+				637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		53BBF5092AF37BAA805A2C5C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		8DDCC9743291817A00031B0B /* MushroomTimerWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				E93297D94A2D72D565B1A641 /* Info.plist */,
+				89E74C7A6C7EBCBB6099AB2A /* MushroomTimerWidgetBundle.swift */,
+				A244E04F74181BA501F8198F /* MushroomTimerWidgets.entitlements */,
+			);
+			path = MushroomTimerWidgets;
+			sourceTree = "<group>";
+		};
+		929AC975D1862BB45886D196 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F27031CBE502D1867FFD149A /* MainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D568C9E5D2493BD35408F88B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85A342B37574622AEB979688 /* TimerCalculator.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F1E23BA8C80E9BB26122B853 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */,
+				7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1899DEE8CEE401A47EEF0A9D /* MushroomTimer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2BFA354286BC7973E4E4B0F4 /* Build configuration list for PBXNativeTarget "MushroomTimer" */;
+			buildPhases = (
+				E3F82AA70DCCA6CCB8FED652 /* Sources */,
+				6F8931382373ABC7A5AC26B5 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6788EAB211BF2F52632E4632 /* PBXTargetDependency */,
+			);
+			name = MushroomTimer;
+			packageProductDependencies = (
+			);
+			productName = MushroomTimer;
+			productReference = 0240A0C48ECADC15F6CA5CDB /* MushroomTimer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8BDA4B8F53ED65CF6BDFABE8 /* MushroomTimerWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E68128F050FE3C47829BFE22 /* Build configuration list for PBXNativeTarget "MushroomTimerWidgets" */;
+			buildPhases = (
+				64A4BA3A1794F67392BC5ADA /* Sources */,
+				20C6949ABB30073AB3429DEE /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MushroomTimerWidgets;
+			packageProductDependencies = (
+			);
+			productName = MushroomTimerWidgets;
+			productReference = 637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B3A5F159975186CD5F5B9BBA /* MushroomTimerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07BFC1D4D7746AF4FC107A7F /* Build configuration list for PBXNativeTarget "MushroomTimerTests" */;
+			buildPhases = (
+				7CD37AC4CC9BFDBCFE96BC46 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C313DBC135C861C6B6B5756F /* PBXTargetDependency */,
+			);
+			name = MushroomTimerTests;
+			packageProductDependencies = (
+			);
+			productName = MushroomTimerTests;
+			productReference = 7DFA084045DB36DF6D3E601A /* MushroomTimerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		350D3ADC84D368964DAA902C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					1899DEE8CEE401A47EEF0A9D = {
+						ProvisioningStyle = Automatic;
+					};
+					8BDA4B8F53ED65CF6BDFABE8 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8192CEB1A64D853E4B80B743 /* Build configuration list for PBXProject "MushroomTimer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 240F975350A4F78AD07704DD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 33EAB13EE185F30F58C18E20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1899DEE8CEE401A47EEF0A9D /* MushroomTimer */,
+				8BDA4B8F53ED65CF6BDFABE8 /* MushroomTimerWidgets */,
+				B3A5F159975186CD5F5B9BBA /* MushroomTimerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64A4BA3A1794F67392BC5ADA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8028E8A857218E2B22EBCCB9 /* MushroomTimerWidgetBundle.swift in Sources */,
+				59E479BDC5D9BB3E4A837E99 /* Placeholder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CD37AC4CC9BFDBCFE96BC46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52B6CE119C23FC5944D5A936 /* TimerCalculatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E3F82AA70DCCA6CCB8FED652 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8BBA38CE3FB6A39EC639AA51 /* MainView.swift in Sources */,
+				A94A9B192CFB8F612A90703A /* MushroomTimerApp.swift in Sources */,
+				6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */,
+				E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6788EAB211BF2F52632E4632 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BDA4B8F53ED65CF6BDFABE8 /* MushroomTimerWidgets */;
+			targetProxy = 1AA8C5EEFFDF244CC8F42285 /* PBXContainerItemProxy */;
+		};
+		C313DBC135C861C6B6B5756F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1899DEE8CEE401A47EEF0A9D /* MushroomTimer */;
+			targetProxy = 50C96E92BBB491EB7F0A2B87 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0B7AD5F168C3604C5B6883A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MushroomTimer.app/MushroomTimer";
+			};
+			name = Release;
+		};
+		14E2F5F727D08C91DB5C9BF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MushroomTimerWidgets/MushroomTimerWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MushroomTimerWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimer.Widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		3543019438B8AE9754E8AF37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MushroomTimer/MushroomTimer.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MushroomTimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimer;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		54A357B88DDCF26640C29A0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimerTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MushroomTimer.app/MushroomTimer";
+			};
+			name = Debug;
+		};
+		5FEBBB51973E2BD84435A57D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MushroomTimerWidgets/MushroomTimerWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MushroomTimerWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimer.Widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		62C1901A293BD210407E0495 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E3B832FAAD48F009C38B4B18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MushroomTimer/MushroomTimer.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MushroomTimer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaoyu.MushroomTimer;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F15C41B3ADEC9FF47E0F9709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07BFC1D4D7746AF4FC107A7F /* Build configuration list for PBXNativeTarget "MushroomTimerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				54A357B88DDCF26640C29A0A /* Debug */,
+				0B7AD5F168C3604C5B6883A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2BFA354286BC7973E4E4B0F4 /* Build configuration list for PBXNativeTarget "MushroomTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3543019438B8AE9754E8AF37 /* Debug */,
+				E3B832FAAD48F009C38B4B18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8192CEB1A64D853E4B80B743 /* Build configuration list for PBXProject "MushroomTimer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F15C41B3ADEC9FF47E0F9709 /* Debug */,
+				62C1901A293BD210407E0495 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E68128F050FE3C47829BFE22 /* Build configuration list for PBXNativeTarget "MushroomTimerWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5FEBBB51973E2BD84435A57D /* Debug */,
+				14E2F5F727D08C91DB5C9BF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 350D3ADC84D368964DAA902C /* Project object */;
+}
