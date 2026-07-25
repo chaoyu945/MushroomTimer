@@ -93,6 +93,15 @@ struct MainView: View {
             guard status == .authorizedWhenInUse || status == .authorizedAlways else { return }
             Task { await refreshCurrentGroup() }
         }
+        .onChange(of: currentGroup?.id, initial: true) { _, id in
+            // 目前群組換了就要同步出去，不管是 GPS 判定、手動切換還是剛建立的。
+            // 少了任何一條路徑，小工具就會停在舊群組，按鈕會登記到錯的菇。
+            // 順序不能反：WidgetChannel 會讀這個 key 來決定要放哪個群組的菇。
+            UserDefaults.standard.set(
+                id?.uuidString, forKey: LocationService.lastKnownGroupIDKey
+            )
+            WidgetChannel.refresh(context: context)
+        }
         .alert("建立新群組", isPresented: $isCreatingGroup) {
             TextField("群組名稱", text: $draftGroupName)
             Button("取消", role: .cancel) {}
@@ -122,11 +131,8 @@ struct MainView: View {
             groups: groups
         )
         gpsGroupID = match?.id
-        // QuickLogHereIntent 不觸發 GPS，改讀這裡記下的結果。
-        UserDefaults.standard.set(
-            match?.id.uuidString, forKey: LocationService.lastKnownGroupIDKey
-        )
-        WidgetChannel.refresh(context: context)
+        // 記錄與小工具的更新統一由下面的 onChange(of: currentGroup?.id) 處理，
+        // 這裡只負責更新 GPS 判定的結果。
     }
 
     private func prepareNewGroup() async {

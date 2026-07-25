@@ -61,4 +61,20 @@ final class WidgetChannelTests: XCTestCase {
         let payload = try WidgetChannel.makePayload(context: context, defaults: defaults)
         XCTAssertEqual(payload.groupName, "新")
     }
+
+    /// refresh 必須真的把 payload 送到共享 keychain，小工具才讀得到。
+    /// 這條路徑原本沒有測試，而它斷掉的話小工具會停在舊資料上，
+    /// 按鈕會替錯的菇建立提醒。
+    func testRefreshPublishesPayloadToSharedKeychain() throws {
+        let group = makeGroup(name: "中山路口", mushrooms: [("7-11 門口", 5), ("天橋下", 2)])
+        try context.save()
+        defaults.set(group.id.uuidString, forKey: LocationService.lastKnownGroupIDKey)
+
+        WidgetChannel.refresh(context: context, defaults: defaults)
+
+        let published = try XCTUnwrap(SharedKeychain.load())
+        XCTAssertEqual(published.groupName, "中山路口")
+        XCTAssertEqual(published.mushrooms.map(\.name), ["7-11 門口", "天橋下"])
+    }
+
 }

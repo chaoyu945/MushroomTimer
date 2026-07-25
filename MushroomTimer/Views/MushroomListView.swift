@@ -98,7 +98,11 @@ struct MushroomListView: View {
             try context.save()
         } catch {
             saveError = error.localizedDescription
+            return
         }
+        // 群組與菇的任何異動都會改變小工具該顯示什麼。漏掉這行，小工具就會
+        // 留著已刪除的菇的按鈕，按下去是無聲的沒反應。
+        WidgetChannel.refresh(context: context)
     }
 
     private func addMushroom() {

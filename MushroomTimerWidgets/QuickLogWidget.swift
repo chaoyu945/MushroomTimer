@@ -18,7 +18,9 @@ struct QuickLogWidget: Widget {
 
 struct QuickLogEntry: TimelineEntry {
     let date: Date
-    let payload: WidgetPayload
+    /// nil 代表「讀不到共享 keychain」，跟「讀得到但還沒建立任何菇」是兩回事。
+    /// 兩者顯示同一句話的話，通道壞掉時使用者只會以為自己還沒設定。
+    let payload: WidgetPayload?
 }
 
 struct QuickLogProvider: TimelineProvider {
@@ -39,21 +41,34 @@ struct QuickLogProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<QuickLogEntry>) -> Void) {
-        let entry = QuickLogEntry(date: .now, payload: SharedKeychain.load() ?? .empty)
+        let entry = QuickLogEntry(date: .now, payload: SharedKeychain.load())
         // 內容只有在主 App 呼叫 reloadAllTimelines() 時才會變，不需要定時刷新。
         completion(Timeline(entries: [entry], policy: .never))
     }
 }
 
 struct QuickLogWidgetView: View {
-    let payload: WidgetPayload
+    let payload: WidgetPayload?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(payload.groupName.isEmpty ? "打菇茜" : payload.groupName)
+            Text(payload?.groupName.isEmpty == false ? payload!.groupName : "打菇茜")
                 .font(.caption.bold())
                 .foregroundStyle(.secondary)
 
+            if let payload {
+                content(for: payload)
+            } else {
+                Text("讀不到資料，請開啟一次打菇茜")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func content(for payload: WidgetPayload) -> some View {
+        Group {
             if payload.mushrooms.isEmpty {
                 Text("開啟打菇茜建立群組與菇")
                     .font(.caption2)

@@ -28,12 +28,16 @@ struct QuickLogIntent: AppIntent, LiveActivityIntent {
     }
 
     @MainActor
-    func perform() async throws -> some IntentResult {
+    func perform() async throws -> some IntentResult & ProvidesDialog {
         #if !WIDGET_EXTENSION
-        guard let id = UUID(uuidString: mushroomID) else { return .result() }
+        // 小工具上的按鈕可能停留在已經被刪掉的菇上（payload 還沒更新）。
+        // 這時候不能無聲無息——使用者按了卻什麼都沒發生，會以為提醒設好了。
+        guard let id = UUID(uuidString: mushroomID) else {
+            return .result(dialog: "這顆菇的資料不正確。")
+        }
         let context = ModelContainer.shared.mainContext
         guard let mushroom = try IntentSupport.mushroom(id: id, context: context) else {
-            return .result()
+            return .result(dialog: "找不到「\(mushroomName)」，可能已經被刪除了。")
         }
         let settings = SettingsStore()
         try await MushroomLogger.log(
@@ -43,7 +47,9 @@ struct QuickLogIntent: AppIntent, LiveActivityIntent {
             respawnSeconds: settings.respawnSeconds,
             context: context
         )
+        return .result(dialog: "已登記「\(mushroomName)」。")
+        #else
+        return .result(dialog: "無法在此執行。")
         #endif
-        return .result()
     }
 }
