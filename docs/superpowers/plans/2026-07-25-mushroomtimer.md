@@ -3420,8 +3420,11 @@ struct QuickLogSection: View {
 `MushroomTimer/Views/MainView.swift` 全檔替換：
 
 ```swift
+import OSLog
 import SwiftData
 import SwiftUI
+
+private let logger = Logger(subsystem: "com.chaoyu.MushroomTimer", category: "MainView")
 
 struct MainView: View {
     @Environment(\.modelContext) private var context
@@ -3479,7 +3482,12 @@ struct MainView: View {
         .onChange(of: scenePhase) { _, phase in
             // 本機通知不會喚醒 App，所以回到前景時補標記已到期的計時。
             if phase == .active {
-                try? TimerQueries.markFired(in: context)
+                do {
+                    try TimerQueries.markFired(in: context)
+                } catch {
+                    // 這是全 App 唯一的到期回收點，壞掉的話會讓所有過期計時卡在畫面上。
+                    logger.error("markFired 失敗：\(error.localizedDescription, privacy: .public)")
+                }
             }
         }
     }
@@ -3891,7 +3899,12 @@ extension LocationService: CLLocationManagerDelegate {
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active else { return }
                 // 本機通知不會喚醒 App，所以回到前景時補標記已到期的計時。
-                try? TimerQueries.markFired(in: context)
+                do {
+                    try TimerQueries.markFired(in: context)
+                } catch {
+                    // 這是全 App 唯一的到期回收點，壞掉的話會讓所有過期計時卡在畫面上。
+                    logger.error("markFired 失敗：\(error.localizedDescription, privacy: .public)")
+                }
                 Task { await refreshCurrentGroup() }
             }
 ```
