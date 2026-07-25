@@ -8,6 +8,7 @@ struct GroupListView: View {
     private var groups: [MushroomGroup]
 
     @State private var pendingDeletion: MushroomGroup?
+    @State private var saveError: String?
 
     var body: some View {
         List {
@@ -49,12 +50,33 @@ struct GroupListView: View {
             Button("刪除", role: .destructive) {
                 if let group = pendingDeletion {
                     context.delete(group)
-                    try? context.save()
+                    save()
                 }
                 pendingDeletion = nil
             }
         } message: {
             Text("底下的 \(pendingDeletion?.mushrooms.count ?? 0) 顆菇會一併刪除，且無法復原。")
+        }
+        .alert(
+            "儲存失敗",
+            isPresented: Binding(
+                get: { saveError != nil },
+                set: { if !$0 { saveError = nil } }
+            )
+        ) {
+            Button("好", role: .cancel) { saveError = nil }
+        } message: {
+            Text(saveError ?? "")
+        }
+    }
+
+    /// 存檔失敗時要讓使用者看到。這兩個畫面管的是全 App 最有價值的資料，
+    /// 靜默失敗會讓人以為改動生效了。
+    private func save() {
+        do {
+            try context.save()
+        } catch {
+            saveError = error.localizedDescription
         }
     }
 }

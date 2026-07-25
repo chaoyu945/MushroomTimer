@@ -10,6 +10,7 @@ struct MushroomListView: View {
     @State private var draftName = ""
     @State private var editingGroupName = false
     @State private var draftGroupName = ""
+    @State private var saveError: String?
 
     private var sortedMushrooms: [Mushroom] {
         TimerQueries.mostUsed(in: group, limit: group.mushrooms.count)
@@ -33,7 +34,7 @@ struct MushroomListView: View {
                     .swipeActions(edge: .trailing) {
                         Button("刪除", role: .destructive) {
                             context.delete(mushroom)
-                            try? context.save()
+                            save()
                         }
                     }
                 }
@@ -52,7 +53,7 @@ struct MushroomListView: View {
                 Slider(
                     value: Binding(
                         get: { group.radius },
-                        set: { group.radius = $0; try? context.save() }
+                        set: { group.radius = $0; save() }
                     ),
                     in: 20...300,
                     step: 10
@@ -71,19 +72,40 @@ struct MushroomListView: View {
             TextField("群組名稱", text: $draftGroupName)
             Button("取消", role: .cancel) {}
             Button("儲存") {
-                let trimmed = draftGroupName.trimmingCharacters(in: .whitespaces)
+                let trimmed = draftGroupName.trimmingCharacters(in: .whitespacesAndNewlines)
                 guard !trimmed.isEmpty else { return }
                 group.name = trimmed
-                try? context.save()
+                save()
             }
+        }
+        .alert(
+            "儲存失敗",
+            isPresented: Binding(
+                get: { saveError != nil },
+                set: { if !$0 { saveError = nil } }
+            )
+        ) {
+            Button("好", role: .cancel) { saveError = nil }
+        } message: {
+            Text(saveError ?? "")
+        }
+    }
+
+    /// 存檔失敗時要讓使用者看到。這兩個畫面管的是全 App 最有價值的資料，
+    /// 靜默失敗會讓人以為改動生效了。
+    private func save() {
+        do {
+            try context.save()
+        } catch {
+            saveError = error.localizedDescription
         }
     }
 
     private func addMushroom() {
-        let trimmed = draftName.trimmingCharacters(in: .whitespaces)
+        let trimmed = draftName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         let mushroom = Mushroom(name: trimmed, group: group)
         context.insert(mushroom)
-        try? context.save()
+        save()
     }
 }
