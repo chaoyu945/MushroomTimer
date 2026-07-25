@@ -1,5 +1,6 @@
 import ActivityKit
 import SwiftUI
+import WidgetKit
 
 /// 第 0 階段的實機驗證畫面。功能完成後（Task 19）整個檔案移除。
 struct VerificationView: View {
@@ -41,6 +42,28 @@ struct VerificationView: View {
                             await activity.end(nil, dismissalPolicy: .immediate)
                         }
                         append("已結束全部 Live Activity")
+                    }
+                }
+            }
+
+            Section("共享 Keychain") {
+                Button("顯示 access group") {
+                    append("access group：\(SharedKeychain.accessGroup ?? "解析失敗")")
+                }
+                Button("寫入測試 payload") {
+                    let payload = WidgetPayload.make(
+                        groupName: "中山路口",
+                        mushrooms: [(UUID(), "7-11 門口"), (UUID(), "天橋下")]
+                    )
+                    let ok = SharedKeychain.save(payload)
+                    WidgetCenter.shared.reloadAllTimelines()
+                    append("寫入 payload：\(ok ? "成功" : "失敗")")
+                }
+                Button("讀回 payload") {
+                    if let payload = SharedKeychain.load() {
+                        append("讀到：\(payload.groupName) / \(payload.mushrooms.map(\.name).joined(separator: "、"))")
+                    } else {
+                        append("讀取失敗")
                     }
                 }
             }
