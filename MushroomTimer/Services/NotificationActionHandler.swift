@@ -22,6 +22,7 @@ final class NotificationActionHandler: NSObject, UNUserNotificationCenterDelegat
         actionID: String,
         timerID: UUID,
         context: ModelContext,
+        scheduler: NotificationScheduling = NotificationService.shared,
         now: Date = .now
     ) async throws {
         var descriptor = FetchDescriptor<TimerEntry>(
@@ -39,7 +40,7 @@ final class NotificationActionHandler: NSObject, UNUserNotificationCenterDelegat
             // 先排通知，成功了才改資料——理由同 `MushroomLogger.log`。
             // 延後失敗卻把狀態改成 active，會留下一筆會倒數但永遠不會響的計時，
             // 而使用者明明按了「延後 1 分鐘」，最可能就這樣錯過。
-            try await NotificationService.shared.schedule(
+            try await scheduler.schedule(
                 id: entry.id,
                 groupName: entry.mushroom?.group?.name ?? "",
                 mushroomName: entry.mushroom?.name ?? "",

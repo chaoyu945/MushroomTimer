@@ -40,13 +40,20 @@ struct QuickLogIntent: AppIntent, LiveActivityIntent {
             return .result(dialog: "找不到「\(mushroomName)」，可能已經被刪除了。")
         }
         let settings = SettingsStore()
-        try await MushroomLogger.log(
-            mushroom: mushroom,
-            remainingSeconds: 0,
-            leadSeconds: settings.defaultLeadSeconds,
-            respawnSeconds: settings.respawnSeconds,
-            context: context
-        )
+        // 這三個 Intent 都是 openAppWhenRun = false，可能從桌面小工具或捷徑
+        // 在完全沒有畫面的情況下執行。丟出去的例外在那裡不一定看得到，
+        // 所以自己接起來換成對話框——沒排定成功卻讓人以為排好了，是最糟的結果。
+        do {
+            try await MushroomLogger.log(
+                mushroom: mushroom,
+                remainingSeconds: 0,
+                leadSeconds: settings.defaultLeadSeconds,
+                respawnSeconds: settings.respawnSeconds,
+                context: context
+            )
+        } catch {
+            return .result(dialog: "沒有建立提醒：\(error.localizedDescription)")
+        }
         return .result(dialog: "已登記「\(mushroomName)」。")
         #else
         return .result(dialog: "無法在此執行。")

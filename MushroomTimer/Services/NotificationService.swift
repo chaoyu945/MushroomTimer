@@ -22,11 +22,27 @@ final class NotificationService: NotificationScheduling {
         (try? await center.requestAuthorization(options: [.alert, .sound, .badge])) ?? false
     }
 
+    enum ScheduleError: LocalizedError {
+        /// 到期時間太近，`UNTimeIntervalNotificationTrigger` 需要大於 0 秒。
+        case tooSoon
+
+        var errorDescription: String? {
+            "提醒時間太接近現在，來不及排定通知。"
+        }
+    }
+
     /// 排定一則在 `date` 響起的本機通知。
     /// - Parameter id: 用計時的 UUID 當通知識別碼，取消時才找得到它。
     func schedule(id: UUID, groupName: String, mushroomName: String, at date: Date) async throws {
         let intervalSeconds = Int(date.timeIntervalSinceNow.rounded(.down))
-        guard intervalSeconds > 0 else { return }
+        // 這裡一定要丟例外，不可以靜默 return。
+        //
+        // `TimerCalculator` 允許 offset 只有 1 秒，但從它算出 fireAt 到這行執行之間
+        // 必然有時間流逝，所以 `timeIntervalSinceNow` 會是 0.99 之類的值，無條件捨去後
+        // 變成 0。若這裡默默返回，`MushroomLogger.log` 會把它當成排定成功，
+        // 於是使用者看到倒數與鎖定畫面卡片，但通知從頭到尾不存在——
+        // 這正是本 App 最不能出的錯。
+        guard intervalSeconds > 0 else { throw ScheduleError.tooSoon }
 
         let content = UNMutableNotificationContent()
         content.title = NotificationPolicy.title

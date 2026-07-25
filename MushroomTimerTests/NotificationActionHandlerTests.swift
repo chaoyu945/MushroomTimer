@@ -2,6 +2,23 @@ import SwiftData
 import XCTest
 @testable import MushroomTimer
 
+/// 假排程器。這些測試用固定的過去時間當「現在」，而真正的
+/// `NotificationService` 是拿真實時鐘算間隔的，會直接判定太近而拒絕。
+private final class StubScheduler: NotificationScheduling, @unchecked Sendable {
+    var scheduled: [(id: UUID, fireAt: Date)] = []
+    var cancelled: [UUID] = []
+    var errorToThrow: Error?
+
+    struct Boom: Error {}
+
+    func schedule(id: UUID, groupName: String, mushroomName: String, at date: Date) async throws {
+        if let errorToThrow { throw errorToThrow }
+        scheduled.append((id, date))
+    }
+
+    func cancel(id: UUID) { cancelled.append(id) }
+}
+
 @MainActor
 final class NotificationActionHandlerTests: XCTestCase {
     private var container: ModelContainer!
@@ -46,17 +63,48 @@ final class NotificationActionHandlerTests: XCTestCase {
         XCTAssertEqual(entry.status, .completed)
     }
 
-    /// 延後 1 分鐘：狀態回到 active，fireAt 從「現在」推遲 60 秒。
+    /// 延後 1 分鐘：狀態回到 active，fireAt 從「現在」推遲 60 秒，
+    /// 而且要真的排一則新的通知，不能只是改資料庫裡的時間。
     func testSnoozeActionReschedulesOneMinuteFromNow() async throws {
         let entry = makeEntry()
+        let scheduler = StubScheduler()
         try await NotificationActionHandler.handle(
             actionID: NotificationPolicy.snoozeActionID,
             timerID: entry.id,
             context: context,
+            scheduler: scheduler,
             now: now
         )
         XCTAssertEqual(entry.status, .active)
         XCTAssertEqual(entry.fireAt, now.addingTimeInterval(60))
+        XCTAssertEqual(scheduler.scheduled.count, 1)
+        XCTAssertEqual(scheduler.scheduled.first?.id, entry.id)
+        XCTAssertEqual(scheduler.scheduled.first?.fireAt, now.addingTimeInterval(60))
+    }
+
+    /// 延後時如果通知排不進去，不可以把狀態改成 active——
+    /// 那會留下一筆會倒數卻永遠不會響的計時，而使用者明明按了「延後」。
+    func testFailedSnoozeLeavesTheEntryUntouched() async {
+        let entry = makeEntry()
+        let originalFireAt = entry.fireAt
+        let scheduler = StubScheduler()
+        scheduler.errorToThrow = StubScheduler.Boom()
+
+        do {
+            try await NotificationActionHandler.handle(
+                actionID: NotificationPolicy.snoozeActionID,
+                timerID: entry.id,
+                context: context,
+                scheduler: scheduler,
+                now: now
+            )
+            XCTFail("排定失敗時應該把錯誤丟出來")
+        } catch {
+            // 正確
+        }
+
+        XCTAssertEqual(entry.status, .fired)
+        XCTAssertEqual(entry.fireAt, originalFireAt)
     }
 
     func testUnknownTimerIDIsIgnored() async throws {

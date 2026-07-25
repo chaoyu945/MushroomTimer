@@ -25,15 +25,22 @@ struct QuickLogHereIntent: AppIntent, LiveActivityIntent {
         }
 
         let settings = SettingsStore()
-        let entry = try await MushroomLogger.log(
-            mushroom: target,
-            remainingSeconds: remainingSeconds,
-            leadSeconds: settings.defaultLeadSeconds,
-            respawnSeconds: settings.respawnSeconds,
-            context: context
-        )
-        return .result(
-            dialog: "已登記 \(target.name)，\(DurationInput.clockTime(entry.fireAt)) 提醒你。"
-        )
+        // 這三個 Intent 都是 openAppWhenRun = false，可能從桌面小工具或捷徑
+        // 在完全沒有畫面的情況下執行。丟出去的例外在那裡不一定看得到，
+        // 所以自己接起來換成對話框——沒排定成功卻讓人以為排好了，是最糟的結果。
+        do {
+            let entry = try await MushroomLogger.log(
+                mushroom: target,
+                remainingSeconds: remainingSeconds,
+                leadSeconds: settings.defaultLeadSeconds,
+                respawnSeconds: settings.respawnSeconds,
+                context: context
+            )
+            return .result(
+                dialog: "已登記 \(target.name)，\(DurationInput.clockTime(entry.fireAt)) 提醒你。"
+            )
+        } catch {
+            return .result(dialog: "沒有建立提醒：\(error.localizedDescription)")
+        }
     }
 }
