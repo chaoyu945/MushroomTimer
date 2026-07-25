@@ -3056,8 +3056,20 @@ final class TimeInputModel {
             leadSeconds: leadSeconds
         ) else { return "時間已過" }
 
-        let offset = Int(fireAt.timeIntervalSince(now).rounded())
+        // 直接用整數算，不要繞過 TimeInterval——這個值本來就是整數秒。
+        let offset = remainingSeconds + respawnSeconds - leadSeconds
         return "\(DurationInput.formatted(seconds: offset)) 後提醒 · \(DurationInput.clockTime(fireAt))"
+    }
+
+    /// 能不能建立。與 `preview` 走同一條判斷，避免畫面顯示「時間已過」卻還按得下去。
+    func canConfirm(now: Date = .now, respawnSeconds: Int) -> Bool {
+        guard let remainingSeconds else { return false }
+        return TimerCalculator.fireAt(
+            now: now,
+            remainingSeconds: remainingSeconds,
+            respawnSeconds: respawnSeconds,
+            leadSeconds: leadSeconds
+        ) != nil
     }
 }
 
@@ -3086,14 +3098,12 @@ struct TimeInputSheet: View {
         _model = State(initialValue: TimeInputModel(leadSeconds: leadSeconds))
     }
 
-    private var isConfirmable: Bool {
-        guard let remaining = model.remainingSeconds else { return false }
-        return TimerCalculator.fireAt(
-            now: .now,
-            remainingSeconds: remaining,
-            respawnSeconds: respawnSeconds,
-            leadSeconds: model.leadSeconds
-        ) != nil
+    /// 大字 readout。解析不出來時直接把使用者按的數字原樣顯示，
+    /// 不要退回 "0:00"——那會被誤讀成合法的「剛爆」。
+    private var bigReadout: String {
+        if model.digits.isEmpty { return "剛爆" }
+        guard let seconds = model.remainingSeconds else { return model.digits }
+        return DurationInput.formatted(seconds: seconds)
     }
 
     var body: some View {
@@ -3104,11 +3114,9 @@ struct TimeInputSheet: View {
             }
             .padding(.top, 24)
 
-            Text(model.digits.isEmpty ? "剛爆" : DurationInput.formatted(
-                seconds: model.remainingSeconds ?? 0
-            ))
-            .font(.system(size: 56, weight: .bold, design: .rounded).monospacedDigit())
-            .foregroundStyle(model.remainingSeconds == nil ? .red : .primary)
+            Text(bigReadout)
+                .font(.system(size: 56, weight: .bold, design: .rounded).monospacedDigit())
+                .foregroundStyle(model.remainingSeconds == nil ? .red : .primary)
 
             Text(model.preview(respawnSeconds: respawnSeconds))
                 .font(.headline)
@@ -3137,7 +3145,7 @@ struct TimeInputSheet: View {
                     .frame(maxWidth: .infinity, minHeight: 52)
             }
             .buttonStyle(.borderedProminent)
-            .disabled(!isConfirmable)
+            .disabled(!model.canConfirm(respawnSeconds: respawnSeconds))
             .padding(.horizontal)
             .padding(.bottom, 12)
         }
