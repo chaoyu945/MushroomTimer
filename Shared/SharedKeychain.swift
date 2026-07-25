@@ -12,10 +12,18 @@ enum SharedKeychain {
 
     /// 完整的 access group（`<TeamID>.com.chaoyu.MushroomTimer.shared`）。
     /// Team ID 不寫死在程式碼裡，改成執行期探測，避免把個人 Team ID 提交進 git。
-    static let accessGroup: String? = {
+    ///
+    /// 只快取成功的結果。若用 `static let` 連失敗也一起快取，那麼只要 process
+    /// 第一次求值時剛好失敗，這個 process 的餘生就再也讀不到 payload 了。
+    private static var cachedAccessGroup: String?
+
+    static var accessGroup: String? {
+        if let cachedAccessGroup { return cachedAccessGroup }
         guard let prefix = teamIdentifierPrefix() else { return nil }
-        return "\(prefix).\(groupSuffix)"
-    }()
+        let group = "\(prefix).\(groupSuffix)"
+        cachedAccessGroup = group
+        return group
+    }
 
     @discardableResult
     static func save(_ payload: WidgetPayload) -> Bool {
@@ -54,10 +62,14 @@ enum SharedKeychain {
     /// 不指定 access group 時系統會塞進 entitlement 裡的第一個群組，
     /// 讀回該群組字串的第一段即為 prefix。
     private static func teamIdentifierPrefix() -> String? {
+        // 探測項目的保護等級必須跟 payload 一致。少了 kSecAttrAccessible 會落到
+        // 預設的 kSecAttrAccessibleWhenUnlocked，鎖屏時查不到也加不進去——
+        // 而小工具的 timeline 更新剛好常在鎖屏狀態發生。
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: "team-id-probe",
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
             kSecReturnAttributes as String: kCFBooleanTrue as Any,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
