@@ -20,6 +20,7 @@
 		3C4125AD129A08E1EB8951E5 /* WidgetPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD959B818E5929AE591DFB6 /* WidgetPayload.swift */; };
 		3FF570F4AB11D6163246B9E1 /* MushroomGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E2F918B216DAD57127A166 /* MushroomGroup.swift */; };
 		43F63840E06822CFC843FEAB /* SharedKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C254939F88113A496C6A4B /* SharedKeychain.swift */; };
+		489CACEDBAC8C51F40B7D91E /* GroupLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2386E5436F2E01CD239CF28F /* GroupLocator.swift */; };
 		49A7F57AD2CC8D6F3AD205B8 /* MushroomTimerWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 637229BB11FBC67744367D81 /* MushroomTimerWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5235821BBE0EEBEF14AA207F /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85F0E08E6E521A94B04B87 /* WidgetKit.framework */; };
 		52B6CE119C23FC5944D5A936 /* TimerCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A71E4B4C56E636B7ADCAC83 /* TimerCalculatorTests.swift */; };
@@ -46,7 +47,9 @@
 		AC131AC4C7AAABB894D5E736 /* SettingsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1BCDBE90679F15E0455ED2 /* SettingsStoreTests.swift */; };
 		B21FFFF3A358B43C8B1C5B3C /* MushroomLoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */; };
 		BB96BFAE5B8AC973A89416A7 /* MushroomLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB5E0CB79E08D30AFCA9A7 /* MushroomLogger.swift */; };
+		BBF92ED5C3C9F70B7B9EDF0A /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCA0BF381B2D157151369AA /* LocationService.swift */; };
 		D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E4125321C8FDA62C34E248 /* GroupListView.swift */; };
+		DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */; };
 		E0935CCA6091F59CB4B70C60 /* TimerCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A342B37574622AEB979688 /* TimerCalculator.swift */; };
 		F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F07028EDD182948D078592 /* ActiveTimersSection.swift */; };
 		FCC3A25577C7E4904CF5893E /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A76B11F3066C1FDC4C76754 /* SettingsStore.swift */; };
@@ -92,12 +95,14 @@
 		1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomTimerApp.swift; sourceTree = "<group>"; };
 		1A1BCDBE90679F15E0455ED2 /* SettingsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreTests.swift; sourceTree = "<group>"; };
 		1A79A5B9BDE577AFCE97B5E7 /* TimeInputModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInputModelTests.swift; sourceTree = "<group>"; };
+		2386E5436F2E01CD239CF28F /* GroupLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupLocator.swift; sourceTree = "<group>"; };
 		247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributesTests.swift; sourceTree = "<group>"; };
 		308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		343D2B82C3797DA02F97425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		34C254939F88113A496C6A4B /* SharedKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedKeychain.swift; sourceTree = "<group>"; };
 		3A76B11F3066C1FDC4C76754 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		48E4125321C8FDA62C34E248 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
+		4CCA0BF381B2D157151369AA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		4F9E19848B81138A3A6D384A /* TimerQueriesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueriesTests.swift; sourceTree = "<group>"; };
 		57B3E760F020A24328342CEF /* TimeInputSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInputSheet.swift; sourceTree = "<group>"; };
 		5AD959B818E5929AE591DFB6 /* WidgetPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPayload.swift; sourceTree = "<group>"; };
@@ -132,6 +137,7 @@
 		EEC62ADA0D9EC46EA87D3CAE /* DurationInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationInput.swift; sourceTree = "<group>"; };
 		F27031CBE502D1867FFD149A /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F2A10FB26414FBBF8FD0C62C /* WidgetPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetPayloadTests.swift; sourceTree = "<group>"; };
+		FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupLocatorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				891E4FD41DA6CC6C1FC00A62 /* DurationInputTests.swift */,
+				FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */,
 				E78717AB597A84B01A34589E /* IntentProcessMarkerTests.swift */,
 				ED89C90547C3FE29A133E296 /* ModelTests.swift */,
 				247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */,
@@ -242,6 +249,7 @@
 		A96D35EFBDAA10EBD0316AC2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4CCA0BF381B2D157151369AA /* LocationService.swift */,
 				74CB5E0CB79E08D30AFCA9A7 /* MushroomLogger.swift */,
 				0117BC947C514D32047430F9 /* NotificationPolicy.swift */,
 				DD32F8CD6E94134D758C221C /* NotificationService.swift */,
@@ -262,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				EEC62ADA0D9EC46EA87D3CAE /* DurationInput.swift */,
+				2386E5436F2E01CD239CF28F /* GroupLocator.swift */,
 				10BF7536DBC3CF8BD634901F /* Mushroom.swift */,
 				C2E2F918B216DAD57127A166 /* MushroomGroup.swift */,
 				85A342B37574622AEB979688 /* TimerCalculator.swift */,
@@ -395,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				304FD7E645216B3095BCA784 /* DurationInputTests.swift in Sources */,
+				DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */,
 				1521BA9AD85121910920B02E /* IntentProcessMarkerTests.swift in Sources */,
 				16A4A0D0306EDACC6B9AA2F4 /* ModelTests.swift in Sources */,
 				70374674CBF77FB2E73AB9F2 /* MushroomActivityAttributesTests.swift in Sources */,
@@ -416,6 +426,8 @@
 				F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */,
 				86BD3E03DF9A00AAAB0C34D4 /* DurationInput.swift in Sources */,
 				D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */,
+				489CACEDBAC8C51F40B7D91E /* GroupLocator.swift in Sources */,
+				BBF92ED5C3C9F70B7B9EDF0A /* LocationService.swift in Sources */,
 				8BBA38CE3FB6A39EC639AA51 /* MainView.swift in Sources */,
 				0BF2B9712BF81875AB346D0A /* Mushroom.swift in Sources */,
 				8E416B7A5EB5C8D2F691F376 /* MushroomActivityAttributes.swift in Sources */,
