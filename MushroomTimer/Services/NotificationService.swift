@@ -18,8 +18,8 @@ final class NotificationService {
     /// 排定一則在 `date` 響起的本機通知。
     /// - Parameter id: 用計時的 UUID 當通知識別碼，取消時才找得到它。
     func schedule(id: UUID, groupName: String, mushroomName: String, at date: Date) async throws {
-        let interval = date.timeIntervalSinceNow
-        guard interval > 0 else { return }
+        let intervalSeconds = Int(date.timeIntervalSinceNow.rounded(.down))
+        guard intervalSeconds > 0 else { return }
 
         let content = UNMutableNotificationContent()
         content.title = NotificationPolicy.title
@@ -27,7 +27,7 @@ final class NotificationService {
         content.sound = .default
         content.interruptionLevel = NotificationPolicy.interruptionLevel
 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(intervalSeconds), repeats: false)
         let request = UNNotificationRequest(
             identifier: id.uuidString, content: content, trigger: trigger
         )
