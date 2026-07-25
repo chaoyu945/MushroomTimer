@@ -85,7 +85,8 @@ enum MushroomLogger {
         }
 
         WidgetChannel.refresh(context: context)
-        await LiveActivityController.refresh(context: context)
+        // 傳同一個 now。用真實時間回收會把這筆剛建立的計時當成過期的。
+        await LiveActivityController.refresh(context: context, now: now)
 
         return entry
     }

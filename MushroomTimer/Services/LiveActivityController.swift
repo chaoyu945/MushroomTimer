@@ -8,7 +8,8 @@ import SwiftData
 ///
 /// 已知限制：免費帳號沒有遠端推播，主 App 沒在執行時無法在最快一筆到期的瞬間
 /// 自動換成下一筆。因此 `ContentState` 會帶著下一筆的名稱，並在每次主 App
-/// 有機會執行時（進前景、Intent 執行、處理通知動作）重新整理。
+/// 的 process 有機會執行時重新整理——進前景、以及每一次登記／取消／完成。
+/// （通知動作那條路徑要等 Task 17 接上 delegate 之後才會存在。）
 @MainActor
 enum LiveActivityController {
     /// 由進行中的計時（已依 fireAt 排序）組出畫面狀態。
@@ -26,8 +27,18 @@ enum LiveActivityController {
     }
 
     /// 依目前資料庫內容建立、更新或結束唯一的 Live Activity。
-    static func refresh(context: ModelContext) async {
+    ///
+    /// `now` 要跟呼叫端使用的時鐘一致。用真實時間去回收一筆以注入時間建立的計時，
+    /// 會把它當成早就過期而直接標記成 fired。
+    static func refresh(context: ModelContext, now: Date = .now) async {
         guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
+        // 先回收已到期的計時，再問誰是最快的一筆。
+        //
+        // `active` 只代表「沒被取消或完成」，過期的計時要等 `markFired` 才會翻面，
+        // 而 `markFired` 只在 App 進前景時跑。偏偏 Intent 刻意不開啟 App——
+        // 所以從小工具或捷徑登記時，鎖定畫面會把一筆早就響過的計時當成「下一個」，
+        // 真正的下一筆反而被藏在 +N 裡面。
+        try? TimerQueries.markFired(in: context, now: now)
         let timers = (try? TimerQueries.active(in: context)) ?? []
         let existing = Activity<MushroomActivityAttributes>.activities
 

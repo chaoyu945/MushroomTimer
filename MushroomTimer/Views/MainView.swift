@@ -88,6 +88,9 @@ struct MainView: View {
         .task {
             location.requestAuthorization()
             await refreshCurrentGroup()
+            // 冷啟動時明確對一次帳：上次執行留下的卡片可能還掛在鎖定畫面上，
+            // 而 scenePhase 的第一次轉換不保證會觸發。
+            await LiveActivityController.refresh(context: context)
         }
         .onChange(of: location.authorizationStatus) { _, status in
             // 第一次啟動時，上面那個 .task 會在使用者還沒回答權限對話框時就跑完，
