@@ -43,6 +43,8 @@ struct MainView: View {
 
                 QuickLogSection(
                     group: currentGroup,
+                    canSwitchGroup: !groups.isEmpty,
+                    locationDenied: location.authorizationDenied,
                     onChangeGroup: { isPickingGroup = true },
                     onCreateGroup: { Task { await prepareNewGroup() } }
                 )
@@ -82,6 +84,13 @@ struct MainView: View {
         .task {
             location.requestAuthorization()
             await refreshCurrentGroup()
+        }
+        .onChange(of: location.authorizationStatus) { _, status in
+            // 第一次啟動時，上面那個 .task 會在使用者還沒回答權限對話框時就跑完，
+            // 所以按下「允許」之後要在這裡補判定一次。少了這段，首次安裝的
+            // GPS 判定要等到 App 切到背景再回來才會生效。
+            guard status == .authorizedWhenInUse || status == .authorizedAlways else { return }
+            Task { await refreshCurrentGroup() }
         }
         .alert("建立新群組", isPresented: $isCreatingGroup) {
             TextField("群組名稱", text: $draftGroupName)

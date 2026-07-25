@@ -7,6 +7,10 @@ struct QuickLogSection: View {
     @EnvironmentObject private var settings: SettingsStore
 
     let group: MushroomGroup?
+    /// 沒有任何群組時不顯示「切換」，否則按下去只會開一個空的選單。
+    let canSwitchGroup: Bool
+    /// 定位被拒時要講出來，否則使用者只會覺得判定壞掉。
+    let locationDenied: Bool
     let onChangeGroup: () -> Void
     let onCreateGroup: () -> Void
 
@@ -83,11 +87,20 @@ struct QuickLogSection: View {
         HStack {
             Image(systemName: "mappin.circle.fill")
                 .foregroundStyle(.orange)
-            Text(group?.name ?? "不在任何群組範圍內")
-                .font(.headline)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(group?.name ?? "不在任何群組範圍內")
+                    .font(.headline)
+                if locationDenied {
+                    Text("定位權限已關閉，請手動選擇群組")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
             Spacer()
-            Button("切換", action: onChangeGroup)
-                .font(.subheadline)
+            if canSwitchGroup {
+                Button("切換", action: onChangeGroup)
+                    .font(.subheadline)
+            }
         }
         .padding(.horizontal)
     }

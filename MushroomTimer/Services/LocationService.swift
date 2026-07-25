@@ -11,6 +11,10 @@ final class LocationService: NSObject, ObservableObject {
 
     @Published private(set) var coordinate: CLLocationCoordinate2D?
     @Published private(set) var authorizationDenied = false
+    /// 權限狀態。第一次啟動時畫面會在使用者按下「允許」之後才拿得到位置，
+    /// 所以要讓 View 能觀察這個值並重新判定一次群組——否則首次安裝的那一輪
+    /// GPS 判定永遠不會發生，得先把 App 切到背景再回來才會生效。
+    @Published private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
 
     private let manager = CLLocationManager()
     private var continuation: CheckedContinuation<CLLocationCoordinate2D?, Never>?
@@ -19,6 +23,7 @@ final class LocationService: NSObject, ObservableObject {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        authorizationStatus = manager.authorizationStatus
     }
 
     func requestAuthorization() {
@@ -54,9 +59,22 @@ final class LocationService: NSObject, ObservableObject {
         let location = CLLocation(
             latitude: coordinate.latitude, longitude: coordinate.longitude
         )
-        let placemarks = try? await CLGeocoder().reverseGeocodeLocation(
-            location, preferredLocale: Locale(identifier: "zh_Hant_TW")
-        )
+        // 這是全 App 唯一會等網路的地方，而它擋在「建立新群組」按鈕後面。
+        // 連線很慢時不能讓按鈕看起來沒反應，所以給它一個上限，逾時就用座標當名字。
+        let placemarks = await withTaskGroup(of: [CLPlacemark]?.self) { group in
+            group.addTask {
+                try? await CLGeocoder().reverseGeocodeLocation(
+                    location, preferredLocale: Locale(identifier: "zh_Hant_TW")
+                )
+            }
+            group.addTask {
+                try? await Task.sleep(for: .seconds(3))
+                return nil
+            }
+            let first = await group.next() ?? nil
+            group.cancelAll()
+            return first
+        }
         guard let placemark = placemarks?.first else {
             return String(
                 format: "%.4f, %.4f", coordinate.latitude, coordinate.longitude
@@ -95,6 +113,7 @@ extension LocationService: CLLocationManagerDelegate {
         let status = manager.authorizationStatus
         Task { @MainActor in
             authorizationDenied = (status == .denied || status == .restricted)
+            authorizationStatus = status
         }
     }
 }
