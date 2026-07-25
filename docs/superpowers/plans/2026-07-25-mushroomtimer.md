@@ -889,7 +889,11 @@ struct MushroomLiveActivity: Widget {
     }
 
     private func countdown(to date: Date) -> some View {
-        Text(timerInterval: Date.now...date, countsDown: true)
+        // `Text(timerInterval:)` 吃的是 ClosedRange，lowerBound > upperBound 會直接 trap。
+        // 提醒時間過了之後這個 view 仍可能被重新求值（extension 重啟、狀態切換），
+        // 所以一定要夾住範圍，不能直接寫 Date.now...date。
+        let now = Date.now
+        return Text(timerInterval: min(now, date)...max(now, date), countsDown: true)
             .multilineTextAlignment(.trailing)
     }
 }
@@ -3189,11 +3193,18 @@ struct ActiveTimersSection: View {
             }
             Spacer()
             // 給定結束時間後元件自己逐秒跑動，不需要任何背景作業。
-            Text(timerInterval: Date.now...timer.fireAt, countsDown: true)
+            // 範圍必須夾住：到期後這個 row 仍會被重新求值，
+            // 而 lowerBound > upperBound 的 ClosedRange 會直接 trap。
+            countdown(to: timer.fireAt)
                 .font(.system(.title, design: .rounded).monospacedDigit().bold())
                 .foregroundStyle(.orange)
         }
         .padding(.vertical, 4)
+    }
+
+    private func countdown(to date: Date) -> some View {
+        let now = Date.now
+        return Text(timerInterval: min(now, date)...max(now, date), countsDown: true)
     }
 }
 ```
