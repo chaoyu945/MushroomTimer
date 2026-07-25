@@ -14,6 +14,11 @@
 
 這些是全域規則，**每一個 task 都適用**，不會在各 task 內重複：
 
+- **【2026-07-25 已驗證】免費 Personal Team 不支援 Time Sensitive Notifications**——
+  帶著該 entitlement 連 provisioning profile 都建不出來。因此 entitlements 中
+  **不可**出現 `com.apple.developer.usernotifications.time-sensitive`，
+  `NotificationPolicy.interruptionLevel` 固定為 `.active`，改由設定頁引導使用者
+  把 App 加入「專注模式」允許清單。詳見 [docs/verification-results.md](../../verification-results.md)
 - 最低支援 iOS 17.0；`TARGETED_DEVICE_FAMILY: "1"`（iPhone only）
 - 主 App Bundle ID `com.chaoyu.MushroomTimer`；Widget extension `com.chaoyu.MushroomTimer.Widgets`。**一旦定案不可更改**（App ID 設定每 7 天僅能改 10 次）
 - entitlements 中**絕不可出現 App Groups**、遠端推播、iCloud、Sign in with Apple、Associated Domains
@@ -5590,8 +5595,8 @@ struct SettingsView: View {
         }
     }
 
-    /// 依 `docs/verification-results.md` 的第 0 階段結論擇一保留：
-    /// Time Sensitive 可用時說明它已啟用；不可用時引導手動加入允許清單。
+    /// 第 0 階段已驗證：免費帳號不支援 Time Sensitive，所以這段引導是必要的，
+    /// 不是二選一。通知用的是 `.active`，會被「專注模式」擋下來。
     private var focusModeGuidance: String {
         """
         若你使用「專注模式」，請到 設定 → 專注模式 → 你使用的模式 → App，
