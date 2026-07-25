@@ -16,11 +16,12 @@ final class SettingsStore: ObservableObject {
     @Published var respawnSeconds: Int {
         didSet {
             let clamped = Self.respawnRange.clamping(respawnSeconds)
-            if clamped != respawnSeconds {
+            if respawnSeconds != clamped {
                 respawnSeconds = clamped
-                return
             }
-            defaults.set(respawnSeconds, forKey: Key.respawn)
+            // 無條件寫入夾好的值。不要改成「超出範圍就 return」——那樣的正確性
+            // 會依賴 @Published 重新觸發 didSet 的重入行為,換成普通屬性就會靜默漏寫。
+            defaults.set(clamped, forKey: Key.respawn)
         }
     }
 
@@ -28,11 +29,11 @@ final class SettingsStore: ObservableObject {
     @Published var defaultLeadSeconds: Int {
         didSet {
             let clamped = Self.leadRange.clamping(defaultLeadSeconds)
-            if clamped != defaultLeadSeconds {
+            if defaultLeadSeconds != clamped {
                 defaultLeadSeconds = clamped
-                return
             }
-            defaults.set(defaultLeadSeconds, forKey: Key.lead)
+            // 無條件寫入夾好的值,理由同上。
+            defaults.set(clamped, forKey: Key.lead)
         }
     }
 
@@ -42,6 +43,9 @@ final class SettingsStore: ObservableObject {
         let storedLead = defaults.object(forKey: Key.lead) as? Int
         self.respawnSeconds = Self.respawnRange.clamping(storedRespawn ?? 300)
         self.defaultLeadSeconds = Self.leadRange.clamping(storedLead ?? 15)
+        // init 不會觸發 didSet,所以壞掉的值要在這裡順手寫回去,否則會一直留在磁碟上。
+        defaults.set(self.respawnSeconds, forKey: Key.respawn)
+        defaults.set(self.defaultLeadSeconds, forKey: Key.lead)
     }
 }
 
