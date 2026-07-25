@@ -125,6 +125,7 @@ struct MainView: View {
         UserDefaults.standard.set(
             match?.id.uuidString, forKey: LocationService.lastKnownGroupIDKey
         )
+        WidgetChannel.refresh(context: context)
     }
 
     private func prepareNewGroup() async {

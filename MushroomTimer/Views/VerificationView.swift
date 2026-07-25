@@ -68,16 +68,6 @@ struct VerificationView: View {
                 }
             }
 
-            Section("Intent 執行 process") {
-                Button("清除 marker") {
-                    IntentProcessMarker.clear()
-                    append("已清除 marker")
-                }
-                Button("讀取最後一次 Intent 的 process") {
-                    append("Intent process：\(IntentProcessMarker.latest() ?? "尚未執行過")")
-                }
-            }
-
             Section("記錄") {
                 if log.isEmpty {
                     Text("尚無記錄").foregroundStyle(.secondary)

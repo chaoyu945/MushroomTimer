@@ -84,6 +84,8 @@ enum MushroomLogger {
             throw error
         }
 
+        WidgetChannel.refresh(context: context)
+
         return entry
     }
 
