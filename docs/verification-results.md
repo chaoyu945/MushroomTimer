@@ -23,3 +23,9 @@
 - 主 App 內寫入後讀回：<成功／失敗>
 - 小工具是否顯示出主 App 寫入的內容：<是／否>
 - **結論**：<採用 keychain 方案，小工具按鈕顯示菇名／改用 fallback：按鈕顯示「最常用 #1/#2/#3」>
+
+## 小工具按鈕 Intent 的執行 process（Task 5）
+
+- 按下小工具按鈕後 App 是否被開啟：<否／是>
+- 主 App 讀到的 process 記錄：<實際字串>
+- **結論**：<LiveActivityIntent 有效，Intent 在主 App process 執行／無效，說明>

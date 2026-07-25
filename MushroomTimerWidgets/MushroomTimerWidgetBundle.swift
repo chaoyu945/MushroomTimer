@@ -18,7 +18,15 @@ struct EmptyWidget: Widget {
                 Text(entry.payload.groupName.isEmpty ? "（無群組）" : entry.payload.groupName)
                     .font(.caption.bold())
                 ForEach(entry.payload.mushrooms) { item in
-                    Text(item.name).font(.caption2)
+                    Button(
+                        intent: QuickLogIntent(
+                            mushroomID: item.id.uuidString,
+                            mushroomName: item.name
+                        )
+                    ) {
+                        Text(item.name).font(.caption2)
+                    }
+                    .buttonStyle(.bordered)
                 }
                 if entry.payload.mushrooms.isEmpty {
                     Text("讀不到 payload").font(.caption2).foregroundStyle(.secondary)
