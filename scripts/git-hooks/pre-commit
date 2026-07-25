@@ -1,0 +1,18 @@
+#!/bin/sh
+# 擋下把個人 Team ID 提交進 git 的意外。
+#
+# Xcode 每次在 GUI 裡選了 Team、按下 build，就會把 DEVELOPMENT_TEAM 寫回
+# project.pbxproj。這個檔案是進版控的，所以一個 `git add -A` 就會把它掃進來。
+# 這個 repo 是公開的，而 project.yml 刻意不設 DEVELOPMENT_TEAM——
+# 正確做法是重跑 `xcodegen generate` 把它清掉，而不是提交上去。
+if git diff --cached --name-only | grep -q 'project\.pbxproj'; then
+    if git diff --cached -- '*project.pbxproj' | grep -q '^+.*DEVELOPMENT_TEAM'; then
+        echo "pre-commit 擋下：project.pbxproj 含有 DEVELOPMENT_TEAM。" >&2
+        echo "" >&2
+        echo "  這是 Xcode 寫回去的個人 Team ID，不可以進公開 repo。" >&2
+        echo "  修法：xcodegen generate && git add MushroomTimer.xcodeproj" >&2
+        echo "" >&2
+        echo "  （真的要略過：git commit --no-verify）" >&2
+        exit 1
+    fi
+fi
