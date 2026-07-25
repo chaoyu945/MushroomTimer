@@ -7,6 +7,8 @@ Pikmin Bloom 打菇重生提醒 App（iOS 17+）。
 ## 文件
 
 - [設計文件](docs/superpowers/specs/2026-07-25-mushroomtimer-design.md)
+- [實作計畫](docs/superpowers/plans/2026-07-25-mushroomtimer.md)
+- [第 0 階段驗證結果](docs/verification-results.md)
 - [原始需求](docs/requirements.md)
 
 ## 開發
