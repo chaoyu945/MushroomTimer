@@ -33,7 +33,7 @@ final class WidgetChannelTests: XCTestCase {
         return group
     }
 
-    func testPayloadUsesLastKnownGroupAndTopThreeMushrooms() throws {
+    func testPayloadUsesLastKnownGroupRankedByUseCount() throws {
         let group = makeGroup(
             name: "中山路口",
             mushrooms: [("一", 1), ("二", 2), ("三", 3), ("四", 4)]
@@ -43,7 +43,9 @@ final class WidgetChannelTests: XCTestCase {
 
         let payload = try WidgetChannel.makePayload(context: context, defaults: defaults)
         XCTAssertEqual(payload.groupName, "中山路口")
-        XCTAssertEqual(payload.mushrooms.map(\.name), ["四", "三", "二"])
+        // 依使用次數由高到低，四顆都在——上限是 WidgetPayload.maxMushrooms，
+        // 不是三顆；小工具再依自己的尺寸決定露出幾顆。
+        XCTAssertEqual(payload.mushrooms.map(\.name), ["四", "三", "二", "一"])
     }
 
     func testPayloadIsEmptyWithoutAnyGroup() throws {

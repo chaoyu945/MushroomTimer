@@ -11,6 +11,11 @@ struct QuickLogHereIntent: AppIntent, LiveActivityIntent {
     @Parameter(title: "剩餘秒數", default: 0, inclusiveRange: (0, 5999))
     var remainingSeconds: Int
 
+    /// 同 `LogMushroomIntent`：少了摘要，捷徑編輯器就不會顯示秒數欄位。
+    static var parameterSummary: some ParameterSummary {
+        Summary("在目前群組登記，剩餘 \(\.$remainingSeconds) 秒")
+    }
+
     init() {}
 
     init(remainingSeconds: Int) {

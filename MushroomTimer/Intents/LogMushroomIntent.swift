@@ -14,11 +14,19 @@ struct LogMushroomIntent: AppIntent, LiveActivityIntent {
     var mushroom: MushroomEntity?
 
     @Parameter(title: "剩餘秒數", default: 0, inclusiveRange: (0, 5999))
-    var remainingSeconds: Int?
+    var remainingSeconds: Int
+
+    /// 沒有這個摘要，捷徑編輯器只會用預設版面，剩餘秒數那個參數
+    /// 根本不會出現在畫面上——使用者能選菇卻不能選時間。
+    /// 兩個參數都列出來之後，才能各自預先綁定成
+    /// 「7-11 門口 · 剛爆」「7-11 門口 · 2:30」這種一點即完成的桌面捷徑。
+    static var parameterSummary: some ParameterSummary {
+        Summary("登記 \(\.$mushroom)，剩餘 \(\.$remainingSeconds) 秒")
+    }
 
     init() {}
 
-    init(mushroom: MushroomEntity?, remainingSeconds: Int?) {
+    init(mushroom: MushroomEntity?, remainingSeconds: Int) {
         self.mushroom = mushroom
         self.remainingSeconds = remainingSeconds
     }
@@ -38,7 +46,7 @@ struct LogMushroomIntent: AppIntent, LiveActivityIntent {
         do {
             let entry = try await MushroomLogger.log(
                 mushroom: target,
-                remainingSeconds: remainingSeconds ?? 0,
+                remainingSeconds: remainingSeconds,
                 leadSeconds: settings.defaultLeadSeconds,
                 respawnSeconds: settings.respawnSeconds,
                 context: context

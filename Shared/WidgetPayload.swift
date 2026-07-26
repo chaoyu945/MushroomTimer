@@ -15,8 +15,9 @@ struct WidgetPayload: Codable, Equatable {
 
     static let empty = WidgetPayload(groupName: "", mushrooms: [])
 
-    /// 小工具版面最多容納 3 顆按鈕。
-    static let maxMushrooms = 3
+    /// payload 帶得動的上限。實際顯示幾顆由小工具依尺寸自己決定
+    /// （小 3、中 6、大 12），所以這裡取最大的那個。
+    static let maxMushrooms = 12
 
     static func make(groupName: String, mushrooms: [(UUID, String)]) -> WidgetPayload {
         WidgetPayload(

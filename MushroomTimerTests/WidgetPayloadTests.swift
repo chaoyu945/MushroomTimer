@@ -20,14 +20,18 @@ final class WidgetPayloadTests: XCTestCase {
         XCTAssertTrue(WidgetPayload.empty.mushrooms.isEmpty)
     }
 
-    /// 小工具最多放 3 顆按鈕，超過的要截掉。
-    func testMakeLimitsToThreeMushrooms() {
+    /// payload 有上限，超過的要截掉——keychain 不該被塞進整個菇清單。
+    /// 實際顯示幾顆由小工具依尺寸決定（小 3、中 6、大 12），這裡驗的是上限本身。
+    func testMakeLimitsToTheMaximum() {
+        let names = (1...WidgetPayload.maxMushrooms + 3).map { "菇\($0)" }
         let payload = WidgetPayload.make(
             groupName: "中山路口",
-            mushrooms: [
-                (UUID(), "一"), (UUID(), "二"), (UUID(), "三"), (UUID(), "四")
-            ]
+            mushrooms: names.map { (UUID(), $0) }
         )
-        XCTAssertEqual(payload.mushrooms.map(\.name), ["一", "二", "三"])
+        XCTAssertEqual(payload.mushrooms.count, WidgetPayload.maxMushrooms)
+        XCTAssertEqual(
+            payload.mushrooms.map(\.name),
+            Array(names.prefix(WidgetPayload.maxMushrooms))
+        )
     }
 }

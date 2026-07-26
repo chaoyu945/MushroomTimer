@@ -11,8 +11,8 @@ struct QuickLogWidget: Widget {
                 .containerBackground(.fill.tertiary, for: .widget)
         }
         .configurationDisplayName("快速登記")
-        .description("按一下常用的菇，直接以「剛爆」建立提醒。")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .description("按一下常用的菇，直接以「剛爆」建立提醒。要指定剩餘時間請用「登記一顆菇」捷徑。")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
@@ -48,7 +48,27 @@ struct QuickLogProvider: TimelineProvider {
 }
 
 struct QuickLogWidgetView: View {
+    @Environment(\.widgetFamily) private var family
+
     let payload: WidgetPayload?
+
+    /// 一列放幾顆、總共放幾顆，由尺寸決定。
+    /// 一個地點常有二十顆以上的菇，只露出三顆會讓人乾脆不用小工具。
+    private var columns: Int {
+        switch family {
+        case .systemLarge: return 3
+        case .systemMedium: return 3
+        default: return 1
+        }
+    }
+
+    private var visibleCount: Int {
+        switch family {
+        case .systemLarge: return 12
+        case .systemMedium: return 6
+        default: return 3
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -74,19 +94,27 @@ struct QuickLogWidgetView: View {
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             } else {
-                ForEach(payload.mushrooms) { item in
-                    Button(
-                        intent: QuickLogIntent(
-                            mushroomID: item.id.uuidString,
-                            mushroomName: item.name
-                        )
-                    ) {
-                        Text(item.name)
-                            .font(.footnote.bold())
-                            .lineLimit(1)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                LazyVGrid(
+                    columns: Array(
+                        repeating: GridItem(.flexible(), spacing: 4), count: columns
+                    ),
+                    spacing: 4
+                ) {
+                    ForEach(payload.mushrooms.prefix(visibleCount)) { item in
+                        Button(
+                            intent: QuickLogIntent(
+                                mushroomID: item.id.uuidString,
+                                mushroomName: item.name
+                            )
+                        ) {
+                            Text(item.name)
+                                .font(.caption2.bold())
+                                .lineLimit(2)
+                                .minimumScaleFactor(0.6)
+                                .frame(maxWidth: .infinity, minHeight: 28)
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
             }
             Spacer(minLength: 0)

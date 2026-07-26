@@ -13,6 +13,10 @@ struct QuickLogIntent: AppIntent, LiveActivityIntent {
     static var title: LocalizedStringResource = "快速登記"
     static var description = IntentDescription("以「剛爆」登記指定的菇。")
     static var openAppWhenRun: Bool = false
+    /// 這個 Intent 只給小工具按鈕用：它的參數是菇的 UUID 字串，
+    /// 在捷徑 App 裡要人手動填 UUID 毫無意義，所以不列進去。
+    /// 要在捷徑裡登記請用「登記一顆菇」。
+    static var isDiscoverable: Bool = false
 
     @Parameter(title: "菇 ID")
     var mushroomID: String

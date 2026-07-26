@@ -8,7 +8,7 @@ import WidgetKit
 struct MushroomLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: MushroomActivityAttributes.self) { context in
-            lockScreenView(context.state)
+            lockScreenView(context.state, isStale: context.isStale)
                 .padding()
                 .activityBackgroundTint(.black.opacity(0.6))
         } dynamicIsland: { context in
@@ -19,8 +19,14 @@ struct MushroomLiveActivity: Widget {
                         .foregroundStyle(.orange)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    countdown(to: context.state.fireAt)
-                        .font(.title2.monospacedDigit().bold())
+                    if context.isStale {
+                        Text("已到期")
+                            .font(.headline)
+                            .foregroundStyle(.orange)
+                    } else {
+                        countdown(to: context.state.fireAt)
+                            .font(.title2.monospacedDigit().bold())
+                    }
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     HStack {
@@ -45,19 +51,30 @@ struct MushroomLiveActivity: Widget {
                 Image(systemName: "circle.hexagongrid.fill")
                     .foregroundStyle(.orange)
             } compactTrailing: {
-                countdown(to: context.state.fireAt)
-                    .font(.caption.monospacedDigit())
-                    .frame(width: 44)
+                if context.isStale {
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundStyle(.orange)
+                } else {
+                    countdown(to: context.state.fireAt)
+                        .font(.caption.monospacedDigit())
+                        .frame(width: 44)
+                }
             } minimal: {
-                countdown(to: context.state.fireAt)
-                    .font(.caption2.monospacedDigit())
-                    .frame(width: 36)
+                if context.isStale {
+                    Image(systemName: "exclamationmark.circle.fill")
+                        .foregroundStyle(.orange)
+                } else {
+                    countdown(to: context.state.fireAt)
+                        .font(.caption2.monospacedDigit())
+                        .frame(width: 36)
+                }
             }
         }
     }
 
     private func lockScreenView(
-        _ state: MushroomActivityAttributes.ContentState
+        _ state: MushroomActivityAttributes.ContentState,
+        isStale: Bool
     ) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -69,12 +86,23 @@ struct MushroomLiveActivity: Widget {
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 4) {
-                countdown(to: state.fireAt)
-                    .font(.largeTitle.monospacedDigit().bold())
-                if let label = state.queueLabel {
-                    Text("還有 \(label)")
+                if isStale {
+                    // 免費帳號沒有遠端推播，App 沒在執行時這張卡片沒辦法自己
+                    // 換成下一筆。與其停在 0:00 裝作還在倒數，不如講實話。
+                    Text("已到期")
+                        .font(.title2.bold())
+                        .foregroundStyle(.orange)
+                    Text(state.nextMushroomName == nil ? "開啟打菇茜" : "開啟看下一個")
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                } else {
+                    countdown(to: state.fireAt)
+                        .font(.largeTitle.monospacedDigit().bold())
+                    if let label = state.queueLabel {
+                        Text("還有 \(label)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
         }
