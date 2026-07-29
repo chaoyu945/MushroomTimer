@@ -14,23 +14,23 @@ struct MainView: View {
     @State private var selectedGroupID: UUID?
     @State private var isPickingGroup = false
     @StateObject private var location = LocationService()
-    @State private var gpsGroupID: UUID?
+    @State private var gps: GPSResolution = .pending
     @State private var isCreatingGroup = false
     @State private var draftGroupName = ""
     @State private var draftCoordinate: (latitude: Double, longitude: Double)?
     @State private var errorMessage: String?
 
-    /// 目前群組。優先採用手動選擇、其次 GPS 判定，最後才是最近建立的群組。
+    /// 目前群組：手動選擇優先，其次 GPS 判定。
+    ///
+    /// 「GPS 還沒回答」和「GPS 回答了，你不在任何群組裡」是兩件事。
+    /// 後者是有意義的答案——它正是「該建立新群組了」的訊號——所以不能拿
+    /// 「最近建立的群組」把它蓋掉。蓋掉的話會同時壞掉兩件事：走到新地點時
+    /// 畫面會賴在舊群組不動，而且因為 `currentGroup` 永遠不是 nil，
+    /// 「建立新群組」按鈕在你有了第一個群組之後就再也不會出現。
     private var currentGroup: MushroomGroup? {
-        if let selectedGroupID,
-           let match = groups.first(where: { $0.id == selectedGroupID }) {
-            return match
-        }
-        if let gpsGroupID,
-           let match = groups.first(where: { $0.id == gpsGroupID }) {
-            return match
-        }
-        return groups.first
+        CurrentGroupResolver.resolve(
+            manualSelection: selectedGroupID, gps: gps, groups: groups
+        )
     }
 
     var body: some View {
@@ -72,6 +72,9 @@ struct MainView: View {
                 ForEach(groups) { group in
                     Button(group.name) { selectedGroupID = group.id }
                 }
+                // 人站在既有群組範圍內、但想在附近再開一個新群組時，
+                // 下面那顆「建立新群組」不會出現，所以這裡也要留一個入口。
+                Button("建立新群組") { Task { await prepareNewGroup() } }
                 Button("取消", role: .cancel) {}
             }
         }
@@ -143,7 +146,14 @@ struct MainView: View {
             longitude: coordinate.longitude,
             groups: groups
         )
-        gpsGroupID = match?.id
+        // 走出所有已知群組的範圍時，把手動選擇一起放掉。
+        // 不放掉的話，先前為了修正 GPS 誤差而手動選的群組會一路跟著你到別的地點。
+        if let match {
+            gps = .matched(match.id)
+        } else {
+            gps = .outsideAllGroups
+            selectedGroupID = nil
+        }
         // 記錄與小工具的更新統一由下面的 onChange(of: currentGroup?.id) 處理，
         // 這裡只負責更新 GPS 判定的結果。
     }

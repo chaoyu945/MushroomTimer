@@ -38,6 +38,7 @@
 		6E01D9ABA21F40BC700DAA4B /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */; };
 		6E8705A0E5F6EB9E5516522E /* TimeInputSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B3E760F020A24328342CEF /* TimeInputSheet.swift */; };
 		70374674CBF77FB2E73AB9F2 /* MushroomActivityAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */; };
+		71A483C473EE1A0C1DD639C8 /* CurrentGroupResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2E3DD43E9FDCF89208B802 /* CurrentGroupResolverTests.swift */; };
 		736C8E46533527610FAAC229 /* MushroomActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD83BF34B380C857399EEF /* MushroomActivityAttributes.swift */; };
 		750E25B3BC94740179B74669 /* SharedKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C254939F88113A496C6A4B /* SharedKeychain.swift */; };
 		7A6D240BEB6A228585353FE4 /* TimeInputModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A79A5B9BDE577AFCE97B5E7 /* TimeInputModelTests.swift */; };
@@ -49,6 +50,7 @@
 		8E416B7A5EB5C8D2F691F376 /* MushroomActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD83BF34B380C857399EEF /* MushroomActivityAttributes.swift */; };
 		907D3BD1FEEEE71626CEC42B /* MushroomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBB1EA6B867776F4195DF16 /* MushroomListView.swift */; };
 		93B9DD55DF2EBC79564F220C /* MushroomLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD755609E25F5F68BE0DBBD /* MushroomLiveActivity.swift */; };
+		9AC019362584FC128BE4B3DB /* CurrentGroupResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDAB99F92C900AE3C775335 /* CurrentGroupResolver.swift */; };
 		9BA786FC741F424334EE2A88 /* LiveActivityStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71922B13A4D0F91F156DFBF2 /* LiveActivityStateTests.swift */; };
 		A83A2E758C42E8F38BFD681F /* WidgetChannelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BA2B9FB411CCA3834DF3EB8 /* WidgetChannelTests.swift */; };
 		A94A9B192CFB8F612A90703A /* MushroomTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1166C53C71AF16FC09B6E3DC /* MushroomTimerApp.swift */; };
@@ -116,6 +118,7 @@
 		247930576A1444BDBE263607 /* MushroomActivityAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomActivityAttributesTests.swift; sourceTree = "<group>"; };
 		248FBAA0FCB177A8B6AF1BB2 /* NotificationActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationActionHandler.swift; sourceTree = "<group>"; };
 		265969DA8299EEEE86A5C7A9 /* MushroomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomEntity.swift; sourceTree = "<group>"; };
+		2B2E3DD43E9FDCF89208B802 /* CurrentGroupResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentGroupResolverTests.swift; sourceTree = "<group>"; };
 		2DEF3D309E373C072B0F3BC8 /* AppShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShortcuts.swift; sourceTree = "<group>"; };
 		308BDD69DC0D3B60A7D4F4CB /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		343D2B82C3797DA02F97425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 		A244E04F74181BA501F8198F /* MushroomTimerWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MushroomTimerWidgets.entitlements; sourceTree = "<group>"; };
 		B2169958ADD14D4A0BD1BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		B87C4E9939AC771A44C39E08 /* TimerQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerQueries.swift; sourceTree = "<group>"; };
+		BCDAB99F92C900AE3C775335 /* CurrentGroupResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentGroupResolver.swift; sourceTree = "<group>"; };
 		C2E2F918B216DAD57127A166 /* MushroomGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomGroup.swift; sourceTree = "<group>"; };
 		C3F07028EDD182948D078592 /* ActiveTimersSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTimersSection.swift; sourceTree = "<group>"; };
 		C9771517F37027ECC43783A5 /* MushroomLoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MushroomLoggerTests.swift; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				8D636E16EF698D45DA7800A7 /* BackupCodecTests.swift */,
+				2B2E3DD43E9FDCF89208B802 /* CurrentGroupResolverTests.swift */,
 				891E4FD41DA6CC6C1FC00A62 /* DurationInputTests.swift */,
 				FB1FF9F7A1A6F3D8810AB4D0 /* GroupLocatorTests.swift */,
 				568C87A44F55D1B138076F56 /* IntentSupportTests.swift */,
@@ -325,6 +330,7 @@
 		D568C9E5D2493BD35408F88B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BCDAB99F92C900AE3C775335 /* CurrentGroupResolver.swift */,
 				EEC62ADA0D9EC46EA87D3CAE /* DurationInput.swift */,
 				2386E5436F2E01CD239CF28F /* GroupLocator.swift */,
 				10BF7536DBC3CF8BD634901F /* Mushroom.swift */,
@@ -473,6 +479,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBF77D3025C063A27C264CD /* BackupCodecTests.swift in Sources */,
+				71A483C473EE1A0C1DD639C8 /* CurrentGroupResolverTests.swift in Sources */,
 				304FD7E645216B3095BCA784 /* DurationInputTests.swift in Sources */,
 				DB9236216DE673F9AD94F40B /* GroupLocatorTests.swift in Sources */,
 				B54D6AE565F73557C26FD351 /* IntentSupportTests.swift in Sources */,
@@ -500,6 +507,7 @@
 				F26B1AD8FBD679DC91FCC46B /* ActiveTimersSection.swift in Sources */,
 				EA20F27ED095A7D1E4EE67AF /* AppShortcuts.swift in Sources */,
 				361CD0B50F3C0BB7523B1EB1 /* BackupCodec.swift in Sources */,
+				9AC019362584FC128BE4B3DB /* CurrentGroupResolver.swift in Sources */,
 				86BD3E03DF9A00AAAB0C34D4 /* DurationInput.swift in Sources */,
 				D1FB6F72B5A07271F7388BE8 /* GroupListView.swift in Sources */,
 				489CACEDBAC8C51F40B7D91E /* GroupLocator.swift in Sources */,
