@@ -6,7 +6,7 @@ final class MushroomActivityAttributesTests: XCTestCase {
         MushroomActivityAttributes.ContentState(
             mushroomName: "7-11 門口",
             groupName: "中山路口",
-            fireAt: Date(timeIntervalSince1970: 1_000_000),
+            respawnAt: Date(timeIntervalSince1970: 1_000_000),
             queuedCount: queued,
             nextMushroomName: nil
         )

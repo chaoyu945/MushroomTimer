@@ -20,7 +20,8 @@ enum LiveActivityController {
         return MushroomActivityAttributes.ContentState(
             mushroomName: soonest.mushroom?.name ?? "菇",
             groupName: soonest.mushroom?.group?.name ?? "",
-            fireAt: soonest.fireAt,
+            // 倒數對著菇重生的時刻，不是發通知的時刻——提前量是通知的概念，不是顯示的概念。
+            respawnAt: soonest.respawnAt,
             queuedCount: max(0, timers.count - 1),
             nextMushroomName: timers.dropFirst().first?.mushroom?.name
         )
@@ -49,7 +50,8 @@ enum LiveActivityController {
             return
         }
 
-        let content = ActivityContent(state: state, staleDate: state.fireAt)
+        // 菇一重生這張卡片就過期了，該換下一筆。
+        let content = ActivityContent(state: state, staleDate: state.respawnAt)
         if let activity = existing.first {
             await activity.update(content)
             // 保險起見，把多開的收掉，確保永遠只有一個。

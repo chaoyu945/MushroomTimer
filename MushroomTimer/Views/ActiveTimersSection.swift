@@ -76,7 +76,8 @@ struct ActiveTimersSection: View {
             // 給定結束時間後元件自己逐秒跑動，不需要任何背景作業。
             // 範圍必須夾住：到期後這個 row 仍會被重新求值，
             // 而 lowerBound > upperBound 的 ClosedRange 會直接 trap。
-            countdown(to: timer.fireAt)
+            // 倒數對著菇重生的時刻，跟動態島同一個基準。
+            countdown(to: timer.respawnAt)
                 .font(.system(.title, design: .rounded).monospacedDigit().bold())
                 .foregroundStyle(.orange)
         }

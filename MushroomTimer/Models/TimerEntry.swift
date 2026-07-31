@@ -31,6 +31,12 @@ final class TimerEntry {
         set { statusRaw = newValue.rawValue }
     }
 
+    /// 菇實際重生的時刻。`fireAt` 是提前 `leadSeconds` 的「發通知」時刻，
+    /// 而畫面上的倒數應該對著這個——使用者在乎的是菇什麼時候長回來。
+    var respawnAt: Date {
+        fireAt.addingTimeInterval(TimeInterval(leadSeconds))
+    }
+
     init(
         id: UUID = UUID(),
         mushroom: Mushroom?,

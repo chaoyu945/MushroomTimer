@@ -11,8 +11,12 @@ struct MushroomActivityAttributes: ActivityAttributes {
         var mushroomName: String
         /// 該筆所屬的群組名稱。
         var groupName: String
-        /// 提醒時間。畫面用 `Text(timerInterval:)` 自己逐秒跑，不需背景更新。
-        var fireAt: Date
+        /// 菇重生的時間，也就是畫面倒數的終點。
+        ///
+        /// 刻意不是「發通知的時間」。通知會提前 `leadSeconds` 響，所以拿它當終點的話，
+        /// 島上歸零之後通知才到，看起來像通知遲到——實際上那正是提前量在發揮作用。
+        /// 使用者真正在乎的是菇什麼時候重生，倒數就該對著那個時刻。
+        var respawnAt: Date
         /// 除了目前這筆之外，還有幾筆在排隊。
         var queuedCount: Int
         /// 下一筆的菇名稱。主 App 沒在執行時無法自動切換，

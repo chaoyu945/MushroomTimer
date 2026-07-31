@@ -24,7 +24,7 @@ struct MushroomLiveActivity: Widget {
                             .font(.headline)
                             .foregroundStyle(.orange)
                     } else {
-                        countdown(to: context.state.fireAt)
+                        countdown(to: context.state.respawnAt)
                             .font(.title2.monospacedDigit().bold())
                     }
                 }
@@ -55,7 +55,7 @@ struct MushroomLiveActivity: Widget {
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundStyle(.orange)
                 } else {
-                    countdown(to: context.state.fireAt)
+                    countdown(to: context.state.respawnAt)
                         .font(.caption.monospacedDigit())
                         .frame(width: 44)
                 }
@@ -64,7 +64,7 @@ struct MushroomLiveActivity: Widget {
                     Image(systemName: "exclamationmark.circle.fill")
                         .foregroundStyle(.orange)
                 } else {
-                    countdown(to: context.state.fireAt)
+                    countdown(to: context.state.respawnAt)
                         .font(.caption2.monospacedDigit())
                         .frame(width: 36)
                 }
@@ -96,7 +96,7 @@ struct MushroomLiveActivity: Widget {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 } else {
-                    countdown(to: state.fireAt)
+                    countdown(to: state.respawnAt)
                         .font(.largeTitle.monospacedDigit().bold())
                     if let label = state.queueLabel {
                         Text("還有 \(label)")
