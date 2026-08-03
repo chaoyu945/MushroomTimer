@@ -14,9 +14,9 @@ struct MushroomLiveActivity: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    Image(systemName: "circle.hexagongrid.fill")
+                    // emoji 自帶顏色，所以不要加 foregroundStyle——那會是個沒有作用的修飾詞。
+                    Text("🍄")
                         .font(.title2)
-                        .foregroundStyle(.orange)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     if context.isStale {
@@ -48,8 +48,7 @@ struct MushroomLiveActivity: Widget {
                     }
                 }
             } compactLeading: {
-                Image(systemName: "circle.hexagongrid.fill")
-                    .foregroundStyle(.orange)
+                Text("🍄")
             } compactTrailing: {
                 if context.isStale {
                     Image(systemName: "exclamationmark.circle.fill")
