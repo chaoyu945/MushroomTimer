@@ -58,6 +58,17 @@ final class NotificationActionHandler: NSObject, UNUserNotificationCenterDelegat
         }
     }
 
+    // ⚠️ 這兩個 delegate 方法**必須**標 `@MainActor`。
+    //
+    // `UNUserNotificationCenterDelegate` 的 async 版本沒有 actor 隔離，
+    // 預設跑在 global concurrent executor 上——也就是非主執行緒。
+    // 但 UserNotifications 要求這些回呼在主執行緒完成，否則會丟出
+    // `NSInternalInconsistencyException: "Call must be made on main thread"`，
+    // App 當場卡住或崩潰，而通知本身照常送達，看起來像「收到通知就壞掉」。
+    //
+    // 內部呼叫已經自己 hop 回 MainActor 了，但那不夠：出問題的是**方法回傳**
+    // 給框架的那一刻所在的執行緒，尤其是 `willPresent` 還要回傳顯示選項。
+    @MainActor
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse
@@ -88,6 +99,7 @@ final class NotificationActionHandler: NSObject, UNUserNotificationCenterDelegat
     }
 
     /// App 在前景時也要看得到通知，否則使用者會以為沒響。
+    @MainActor
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification
