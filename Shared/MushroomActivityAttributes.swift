@@ -27,5 +27,60 @@ struct MushroomActivityAttributes: ActivityAttributes {
         var queueLabel: String? {
             queuedCount > 0 ? "+\(queuedCount)" : nil
         }
+
+        init(
+            mushroomName: String,
+            groupName: String,
+            respawnAt: Date,
+            queuedCount: Int,
+            nextMushroomName: String? = nil
+        ) {
+            self.mushroomName = mushroomName
+            self.groupName = groupName
+            self.respawnAt = respawnAt
+            self.queuedCount = queuedCount
+            self.nextMushroomName = nextMushroomName
+        }
+
+        // MARK: - 持久化格式
+        //
+        // ⚠️ `ContentState` 是**會被 ActivityKit 存起來**的格式，不只是記憶體裡的結構。
+        // 進行中的 Live Activity 用「建立當下那個版本」的欄位名存著，App 更新之後
+        // 由新版程式碼解碼。所以改欄位名等同於改檔案格式：舊的活動會解不開，
+        // 卡片先凍結在最後一幀、接著變成空白，而通知照常運作——看起來像
+        // 「Live Activity 無緣無故壞了」，很難聯想到是改名造成的。
+        //
+        // 2026-08 就是這樣把 `fireAt` 改名成 `respawnAt`，弄壞了當時正在飛的活動。
+        // 下面保留舊鍵的相容解碼。要再改欄位名的話，請一併在這裡留退路。
+        private enum CodingKeys: String, CodingKey {
+            case mushroomName, groupName, respawnAt, queuedCount, nextMushroomName
+            case legacyFireAt = "fireAt"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            mushroomName = try container.decode(String.self, forKey: .mushroomName)
+            groupName = try container.decode(String.self, forKey: .groupName)
+            queuedCount = try container.decode(Int.self, forKey: .queuedCount)
+            nextMushroomName = try container.decodeIfPresent(
+                String.self, forKey: .nextMushroomName
+            )
+            if let respawn = try container.decodeIfPresent(Date.self, forKey: .respawnAt) {
+                respawnAt = respawn
+            } else {
+                // 舊版存的是發通知的時刻，比重生早一個提前量。差幾秒，
+                // 但總比整張卡片畫不出來好——下次更新就會被覆蓋成正確的值。
+                respawnAt = try container.decode(Date.self, forKey: .legacyFireAt)
+            }
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(mushroomName, forKey: .mushroomName)
+            try container.encode(groupName, forKey: .groupName)
+            try container.encode(respawnAt, forKey: .respawnAt)
+            try container.encode(queuedCount, forKey: .queuedCount)
+            try container.encodeIfPresent(nextMushroomName, forKey: .nextMushroomName)
+        }
     }
 }
