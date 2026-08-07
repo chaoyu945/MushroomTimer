@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var exportURL: URL?
     @State private var isImporting = false
     @State private var message: String?
+    @State private var diagnostics: [NotificationDiagnostics.Row] = []
 
     var body: some View {
         List {
@@ -43,8 +44,40 @@ struct SettingsView: View {
             Section("通知準時性") {
                 Text(focusModeGuidance)
             }
+
+            Section {
+                if diagnostics.isEmpty {
+                    Text("還沒有紀錄。建立幾筆提醒、等它們響過之後再回來看。")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                } else {
+                    ForEach(Array(diagnostics.enumerated()), id: \.offset) { _, row in
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack {
+                                Text(row.mushroomName)
+                                    .font(.subheadline)
+                                Spacer()
+                                Text(outcomeText(row.outcome))
+                                    .font(.subheadline.monospacedDigit())
+                                    .foregroundStyle(outcomeColor(row.outcome))
+                            }
+                            Text("預定 \(DurationInput.clockTime(row.intendedFireAt))")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+            } header: {
+                Text("通知送達紀錄")
+            } footer: {
+                Text("正值代表通知比預定時間晚到幾秒。「未送達」代表時間已過，"
+                     + "但系統裡既沒有送達紀錄也沒有待發請求。把這頁的數字回報出來，"
+                     + "比用眼睛估動態島上的秒數準確得多。")
+            }
         }
         .navigationTitle("設定")
+        .task { await loadDiagnostics() }
+        .refreshable { await loadDiagnostics() }
         .sheet(item: $exportURL) { url in
             ShareLink(item: url) { Text("分享備份檔") }
                 .presentationDetents([.medium])
@@ -108,8 +141,37 @@ struct SettingsView: View {
             message = "匯入失敗：\(error.localizedDescription)"
         }
     }
+
+    private func loadDiagnostics() async {
+        diagnostics = (try? await NotificationDiagnostics.report(context: context)) ?? []
+    }
+
+    private func outcomeText(_ outcome: NotificationDiagnostics.Outcome) -> String {
+        switch outcome {
+        case .delivered(let delay):
+            return delay == 0 ? "準時" : (delay > 0 ? "慢 \(delay) 秒" : "早 \(-delay) 秒")
+        case .pending:
+            return "等待中"
+        case .missing:
+            return "未送達"
+        case .notApplicable:
+            return "已處理"
+        }
+    }
+
+    private func outcomeColor(_ outcome: NotificationDiagnostics.Outcome) -> Color {
+        switch outcome {
+        case .delivered(let delay):
+            return abs(delay) <= 1 ? .green : .orange
+        case .missing:
+            return .red
+        case .pending, .notApplicable:
+            return .secondary
+        }
+    }
 }
 
 extension URL: @retroactive Identifiable {
     public var id: String { absoluteString }
+
 }
